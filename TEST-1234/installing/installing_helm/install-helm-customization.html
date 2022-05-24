@@ -1,0 +1,3856 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  <title>Installing with customizations - Installing using Helm charts | Installing | Red Hat Advanced Cluster Security for Kubernetes Branch Build</title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css">
+  <link href="https://docs.openshift.com/container-platform/4.1/_stylesheets/search.css" rel="stylesheet" />
+  <link href="https://docs.openshift.com/container-platform/4.1/_stylesheets/autumn.css" rel="stylesheet" />
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png">
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css">
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen, print" />
+  <link href="https://docs.openshift.com/container-platform/4.1/_stylesheets/docs.css" rel="stylesheet" />
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PMDVKG');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Adobe DTM -->
+<script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+<!-- End Adobe DTM -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+  <script>
+
+    function getPDF() {
+      var element = document.getElementsByClassName('main');
+      
+      var opt = {
+        margin:       10,
+        filename:     'installing/installing_helm/install-helm-customization.pdf',
+        html2canvas:  { windowWidth: 650 },
+        image:        { type: 'jpeg', quality: 0.98 }
+      };
+      html2pdf().set(opt).from(element[0]).save();
+    }
+  </script>
+
+</head>
+
+<body onload="selectVersion('Branch Build');">
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PMDVKG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://manage.openshift.com" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb">
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+        <a href="../../welcome/index.html">Red Hat Advanced Cluster Security for Kubernetes Branch Build</a>
+        
+      </li>
+      <li class="hidden-xs active">
+        <a href="../../installing/prerequisites.html">Installing</a>
+      </li>
+      <li class="hidden-xs active"><a href="../../installing/installing_helm/install-helm-quick.html">Installing using Helm charts</a></li>
+      <li class="hidden-xs active">
+        Installing with customizations
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/rhacs-docs-Branch Build/installing/installing_helm/install-helm-customization.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://github.com/openshift/openshift-docs/issues/new?title=[RHACS] Issue in file installing/installing_helm/install-helm-customization.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="getPDF();"><span class="material-icons-outlined" title="Download PDF (may take a while for large pages)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0">
+        <span id="tgSpan0" class="fa fa-angle-right"></span>
+          About
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup0" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../welcome/index.html">Welcome</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1">
+        <span id="tgSpan1" class="fa fa-angle-right"></span>
+          Release notes
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup1" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../release_notes/369-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.69</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../release_notes/368-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.68</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../release_notes/367-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.67</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../release_notes/366-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.66</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../release_notes/365-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.65</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../release_notes/364-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.64</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../release_notes/363-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.63</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../release_notes/3062-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.0.62</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../release_notes/3061-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.0.61</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../release_notes/3060-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.0.60</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2">
+        <span id="tgSpan2" class="fa fa-angle-right"></span>
+          Architecture
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup2" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../architecture/acs-architecture.html">Product architecture</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3">
+        <span id="tgSpan3" class="fa fa-angle-down"></span>
+          Installing
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup3" class="collapse in list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../installing/prerequisites.html">Installation prerequisites</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../installing/acs-installation-platforms.html">Installation platforms and methods</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../installing/install-ocp-operator.html">Installing by using an Operator</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+            <!-- this topic contains subtopics - Welcome 2 -->
+
+
+            <!-- start a new heading area -->
+
+            <li class="nav-header">
+              <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-3-3">
+                <span id="sgSpan-3-3" class="fa fa-caret-down"></span>
+                  &nbsp;Installing using Helm charts
+
+                  <!-- prints out the names of the second level books with arrow down or to right
+                  So in this case: Welcome 2 -->
+
+              </a>
+              <ul id="topicSubGroup-3-3" class="nav-tertiary list-unstyled collapse in">
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../../installing/installing_helm/install-helm-quick.html">
+                      Installing quickly
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class=" active" href="../../installing/installing_helm/install-helm-customization.html">
+                      Installing with customizations
+                    </a>
+                  </li>
+
+                
+
+              </ul>
+            </li>
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../installing/install-quick-roxctl.html">Installing using the roxctl CLI</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../installing/uninstall-acs.html">Uninstalling Red Hat Advanced Cluster Security for Kubernetes</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup4">
+        <span id="tgSpan4" class="fa fa-angle-right"></span>
+          Configuring
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup4" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/add-custom-certificates.html">Adding custom certificates</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/add-trusted-ca.html">Adding trusted certificate authorities</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/reissue-internal-certificates.html">Reissuing internal certificates</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/add-security-notices.html">Adding security notices</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/enable-offline-mode.html">Enabling offline mode</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/enable-alert-data-retention.html">Enabling alert data retention</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/expose-portal-over-http.html">Exposing the RHACS portal over HTTP</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/configure-automatic-upgrades.html">Configuring automatic upgrades for secured clusters</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/configure-proxy.html">Configuring a proxy for external network access</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/generate-diagnostic-bundle.html">Generating a diagnostic bundle</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/configure-endpoints.html">Configuring endpoints</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/monitor-acs.html">Monitoring with Prometheus</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../configuration/configure-audit-logging.html">Enabling audit logging</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup5">
+        <span id="tgSpan5" class="fa fa-angle-right"></span>
+          Operating
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup5" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../operating/view-dashboard.html">Viewing the dashboard</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../operating/manage-compliance.html">Managing compliance</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../operating/evaluate-security-risks.html">Evaluating security risks</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../operating/use-admission-controller-enforcement.html">Using admission controller enforcement</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../operating/manage-security-policies.html">Managing security policies</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../operating/manage-network-policies.html">Managing network policies</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../operating/review-cluster-configuration.html">Reviewing cluster configuration</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../operating/examine-images-for-vulnerabilities.html">Examining images for vulnerabilities</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../operating/manage-vulnerabilities.html">Managing vulnerabilities</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../operating/respond-to-violations.html">Responding to violations</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../operating/search-filter.html">Searching and filtering</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+            <!-- this topic contains subtopics - Welcome 2 -->
+
+
+            <!-- start a new heading area -->
+
+            <li class="nav-header">
+              <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-5-11">
+                <span id="sgSpan-5-11" class="fa fa-caret-right"></span>
+                  &nbsp;Managing user access
+
+                  <!-- prints out the names of the second level books with arrow down or to right
+                  So in this case: Welcome 2 -->
+
+              </a>
+              <ul id="topicSubGroup-5-11" class="nav-tertiary list-unstyled collapse">
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../../operating/manage-user-access/configure-okta-identity-cloud.html">
+                      Configuring Okta Identity Cloud as a SAML 2.0 identity provider
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../../operating/manage-user-access/configure-google-workspace-identity.html">
+                      Configuring Google Workspace as an OIDC identity provider
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../../operating/manage-user-access/configure-ocp-oauth.html">
+                      Configuring OpenShift Container Platform OAuth server as an identity provider
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../../operating/manage-user-access/manage-role-based-access-control-3630.html">
+                      Managing RBAC in Red Hat Advanced Cluster Security for Kubernetes 3.63 and newer
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../../operating/manage-user-access/enable-pki-authentication.html">
+                      Enabling PKI authentication
+                    </a>
+                  </li>
+
+                
+
+              </ul>
+            </li>
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../operating/use-system-health-dashboard.html">Using the system health dashboard</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup6">
+        <span id="tgSpan6" class="fa fa-angle-right"></span>
+          Integrating
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup6" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-with-image-registries.html">Integrating with image registries</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-with-ci-systems.html">Integrating with CI systems</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-with-pagerduty.html">Integrating with PagerDuty</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-with-slack.html">Integrating with Slack</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-using-generic-webhooks.html">Integrating by using generic webhooks</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-with-sumologic.html">Integrating with Sumo Logic</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-with-google-cloud-storage.html">Integrating with Google Cloud Storage</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-using-syslog-protocol.html">Integrating by using the syslog protocol</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-with-amazon-s3.html">Integrating with Amazon S3</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-with-google-cloud-scc.html">Integrating with Google Cloud Security Command Center</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-with-splunk.html">Integrating with Splunk</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-with-image-vulnerability-scanners.html">Integrating with image vulnerability scanners</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-with-jira.html">Integrating with Jira</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../integration/integrate-with-email.html">Integrating with Email</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup7">
+        <span id="tgSpan7" class="fa fa-angle-right"></span>
+          Backup and restore
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup7" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../backup_and_restore/backing-up-acs.html">Backing up Red Hat Advanced Cluster Security for Kubernetes</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../backup_and_restore/restore-acs.html">Restoring from a backup</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup8">
+        <span id="tgSpan8" class="fa fa-angle-right"></span>
+          Upgrading
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup8" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../upgrading/upgrade-helm.html">Upgrading using Helm charts</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../upgrading/upgrade-roxctl.html">Upgrading using the roxctl CLI</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup9">
+        <span id="tgSpan9" class="fa fa-angle-right"></span>
+          roxctl CLI
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup9" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../cli/getting-started-cli.html">Getting started with the roxctl CLI</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup10">
+        <span id="tgSpan10" class="fa fa-angle-right"></span>
+          Support
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup10" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../support/getting-support.html">Getting support for Red Hat Advanced Cluster Security for Kubernetes</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../../support/getting-support-stackrox.html">Getting support for the StackRox Kubernetes Security Platform</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            Installing with customizations using Helm charts
+          </h1>
+        </div>
+        
+        
+        <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#adding-helm-repository_acs-install-helm-customization">Adding the Helm chart repository</a></li>
+<li><a href="#configure-central-services-helm-chart">Configuring the central-services Helm chart</a>
+<ul class="sectlevel2">
+<li><a href="#central-services-private-configuration-file_acs-install-helm-customization">Private configuration file</a></li>
+<li><a href="#central-services-public-configuration-file_acs-install-helm-customization">Public configuration file</a></li>
+</ul>
+</li>
+<li><a href="#install-central-services-helm-chart_acs-install-helm-customization">Installing the central-services Helm chart</a>
+<ul class="sectlevel2">
+<li><a href="#change-config-options-after-deployment-central-services_acs-install-helm-customization">Changing configuration options after deploying the central-services Helm chart</a></li>
+</ul>
+</li>
+<li><a href="#generate-init-bundle-helm">Generating an init bundle</a>
+<ul class="sectlevel2">
+<li><a href="#roxctl-generate-init-bundle_acs-install-helm-customization">Generating an init bundle by using the roxctl CLI</a></li>
+<li><a href="#portal-generate-init-bundle_acs-install-helm-customization">Generating an init bundle by using the RHACS portal</a></li>
+</ul>
+</li>
+<li><a href="#configure-secured-cluster-services-helm-chart">Configuring the secured-cluster-services Helm chart</a>
+<ul class="sectlevel2">
+<li><a href="#secured-cluster-services-config_acs-install-helm-customization">Configuration parameters</a></li>
+</ul>
+</li>
+<li><a href="#install-secured-cluster-services-helm-chart_acs-install-helm-customization">Installing the secured-cluster-services Helm chart</a>
+<ul class="sectlevel2">
+<li><a href="#change-config-options-after-deployment_acs-install-helm-customization">Changing configuration options after deploying the secured-cluster-services Helm chart</a></li>
+</ul>
+</li>
+<li><a href="#verify-acs-installation_acs-install-helm-customization">Verifying installation</a></li>
+</ul>
+</div>
+<div class="paragraph">
+<p>High-level installation flow:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add Red Hat Advanced Cluster Security for Kubernetes Helm chart repository.</p>
+</li>
+<li>
+<p>Configure the <code>central-services</code> Helm chart.</p>
+</li>
+<li>
+<p>Install the <code>central-services</code> Helm chart to install the <a href="../../architecture/acs-architecture.html#centralized-components_acs-architecture">centralized components</a> (Central and Scanner).</p>
+</li>
+<li>
+<p>Generate an init bundle.</p>
+</li>
+<li>
+<p>Configure the <code>secured-cluster-services</code> Helm chart.</p>
+</li>
+<li>
+<p>Install the <code>secured-cluster-services</code> Helm chart to install the <a href="../../architecture/acs-architecture.html#per-cluster-components_acs-architecture">per-cluster</a> and <a href="../../architecture/acs-architecture.html#per-node-components_acs-architecture">per-node</a> components (Sensor, Admission Controller, and Collector).</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Before you install:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Understand <a href="../../architecture/acs-architecture.html">Red Hat Advanced Cluster Security for Kubernetes architecture</a>.</p>
+</li>
+<li>
+<p>Review the <a href="../prerequisites.html#acs-general-requirements_acs-prerequisites">prerequisites for installing Red Hat Advanced Cluster Security for Kubernetes</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding-helm-repository_acs-install-helm-customization"><a class="anchor" href="#adding-helm-repository_acs-install-helm-customization"></a>Adding the Helm chart repository</h2>
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>Add Red Hat Advanced Cluster Security for Kubernetes charts repository.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>helm repo add rhacs https://mirror.openshift.com/pub/rhacs/charts/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Helm repository for Red Hat Advanced Cluster Security for Kubernetes includes two Helm charts for installing different components.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Central services Helm chart (<code>central-services</code>) for installing the centralized components (Central and Scanner).</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You deploy centralized components only once and you can monitor multiple separate clusters by using the same installation.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Secured Cluster Services Helm chart (<code>secured-cluster-services</code>) for installing the per-cluster (Sensor and Admission controller) and per-node (Collector) components.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Deploy the per-cluster components into each cluster that you want to monitor and deploy the per-node components in all nodes that you want to monitor.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Verification</div>
+<ul>
+<li>
+<p>Run the following command to verify the added chart repository:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>helm search repo <span class="nt">-l</span> rhacs/</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configure-central-services-helm-chart"><a class="anchor" href="#configure-central-services-helm-chart"></a>Configuring the central-services Helm chart</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes Helm chart configuration parameters that you can use with the <code>helm install</code> and <code>helm upgrade</code> commands.
+You can specify these parameters by using the <code>--set</code> option or by creating YAML configuration files.</p>
+</div>
+<div class="paragraph">
+<p>Create the following files for configuring the Helm chart for installing Red Hat Advanced Cluster Security for Kubernetes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Public configuration file <code>values-public.yaml</code>: Use this file to save all non-sensitive configuration options.</p>
+</li>
+<li>
+<p>Private configuration file <code>values-private.yaml</code>: Use this file to save all sensitive configuration options. Make sure that you store this file securely.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="central-services-private-configuration-file_acs-install-helm-customization"><a class="anchor" href="#central-services-private-configuration-file_acs-install-helm-customization"></a>Private configuration file</h3>
+<div class="paragraph">
+<p>This section lists the configurable parameters of the <code>values-private.yaml</code> file.
+There are no default values for these parameters.</p>
+</div>
+<div class="sect3">
+<h4 id="central-services-private-configuration-file-image-pull-secrets_acs-install-helm-customization"><a class="anchor" href="#central-services-private-configuration-file-image-pull-secrets_acs-install-helm-customization"></a>Image pull secrets</h4>
+<div class="paragraph">
+<p>The credentials required for pulling images from your registry.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>If you are using the <code>stackrox.io</code> registry, you must specify the <code>imagePullSecrets.username</code> and <code>imagePullSecrets.password</code> parameters.</p>
+</li>
+<li>
+<p>If you are using a custom registry, you must also specify the <code>image.registry</code> parameter.</p>
+</li>
+<li>
+<p>If you do not use a username and password to log in to your custom registry, you must specify one of the following parameters:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>imagePullSecrets.allowNone</code></p>
+</li>
+<li>
+<p><code>imagePullSecrets.useExisting</code></p>
+</li>
+<li>
+<p><code>imagePullSecrets.useFromDefaultServiceAccount</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imagePullSecrets.username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The username for your registry.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imagePullSecrets.password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The password (for the selected username) of your registry.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imagePullSecrets.allowNone</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> if you are using a custom registry and it allows pulling images without credentials.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imagePullSecrets.useExisting</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A comma-seprated list of secrets as values.
+For example, <code>secret1, secret2, secretN</code>. Use this option if you have already created pre-existing image pull secrets with the given name in the target namespace.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imagePullSecrets.useFromDefaultServiceAccount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> if you have already configured the default service account in the target namespace with sufficiently scoped image pull secrets.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="central-services-private-configuration-file-proxy-config_acs-install-helm-customization"><a class="anchor" href="#central-services-private-configuration-file-proxy-config_acs-install-helm-customization"></a>Proxy configuration</h4>
+<div class="paragraph">
+<p>If you are installing Red Hat Advanced Cluster Security for Kubernetes in a cluster that requires a proxy  to connect to external services, you must specify your proxy configuration by using the <code>proxyConfig</code> parameter.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">env</span><span class="pi">:</span>
+  <span class="na">proxyConfig</span><span class="pi">:</span> <span class="pi">|</span>
+    <span class="s">url: http://proxy.name:port</span>
+    <span class="s">username: username</span>
+    <span class="s">password: password</span>
+    <span class="s">excludes:</span>
+    <span class="s">- some.domain</span></code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.proxyConfig</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Your proxy configuration.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="central-services-private-configuration-file-central_acs-install-helm-customization"><a class="anchor" href="#central-services-private-configuration-file-central_acs-install-helm-customization"></a>Central</h4>
+<div class="paragraph">
+<p>Configurable parameters for Central.</p>
+</div>
+<div class="paragraph">
+<p>For a new installation, you can skip the following parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>central.jwtSigner.key</code></p>
+</li>
+<li>
+<p><code>central.serviceTLS.cert</code></p>
+</li>
+<li>
+<p><code>central.serviceTLS.key</code></p>
+</li>
+<li>
+<p><code>central.adminPassword.value</code></p>
+</li>
+<li>
+<p><code>central.adminPassword.htpasswd</code></p>
+</li>
+<li>
+<p>When you do not specify values for these parameters the Helm chart autogenerates values for them.</p>
+</li>
+<li>
+<p>If you want to modify these values you can use the <code>helm upgrade</code> command and specify the values using the <code>--set</code> option.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For setting the administrator password, you can only use either <code>central.adminPassword.value</code> or <code>central.adminPassword.htpasswd</code>, but not both.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.jwtSigner.key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A private key which Red Hat Advanced Cluster Security for Kubernetes should use for signing JSON web tokens (JWTs) for authentication.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.serviceTLS.cert</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An internal certificate that the Central service should use for deploying Central.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.serviceTLS.key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The private key of the internal certificate that the Central service should use.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.defaultTLS.cert</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The user-facing certificate that Central should use. Red Hat Advanced Cluster Security for Kubernetes uses this certificate for RHACS portal.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For a new installation, you must provide a certificate, otherwise, Red Hat Advanced Cluster Security for Kubernetes installs Central by using a self-signed certificate.</p>
+</li>
+<li>
+<p>If you are upgrading, Red Hat Advanced Cluster Security for Kubernetes uses the existing certificate and its key.</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.defaultTLS.key</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The private key of the user-facing certificate that Central should use.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>For a new installation, you must provide the private key, otherwise, Red Hat Advanced Cluster Security for Kubernetes installs Central by using a self-signed certificate.</p>
+</li>
+<li>
+<p>If you are upgrading, Red Hat Advanced Cluster Security for Kubernetes uses the existing certificate and its key.</p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.adminPassword.value</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Administrator password for logging into Red Hat Advanced Cluster Security for Kubernetes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.adminPassword.htpasswd</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Administrator password for logging into Red Hat Advanced Cluster Security for Kubernetes.
+This password is stored in hashed format using bcrypt.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you are using <code>central.adminPassword.htpasswd</code> parameter, you must use a bcrypt encoded password hash.
+You can run the command <code>htpasswd -nB admin</code> to generate a password hash.
+For example,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">htpasswd</span><span class="pi">:</span> <span class="pi">|</span>
+  <span class="s">admin:&lt;bcrypt-hash&gt;</span></code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="central-services-private-configuration-file-scanner_acs-install-helm-customization"><a class="anchor" href="#central-services-private-configuration-file-scanner_acs-install-helm-customization"></a>Scanner</h4>
+<div class="paragraph">
+<p>Configurable parameters for Scanner.</p>
+</div>
+<div class="paragraph">
+<p>For a new installation, you can skip the following parameters and the Helm chart autogenerates values for them.
+Otherwise, if you are upgrading to a new version, specify the values for the following parameters:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>scanner.dbPassword.value</code></p>
+</li>
+<li>
+<p><code>scanner.serviceTLS.cert</code></p>
+</li>
+<li>
+<p><code>scanner.serviceTLS.key</code></p>
+</li>
+<li>
+<p><code>scanner.dbServiceTLS.cert</code></p>
+</li>
+<li>
+<p><code>scanner.dbServiceTLS.key</code></p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbPassword.value</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The password to use for authentication with Scanner database.
+Do not modify this parameter because Red Hat Advanced Cluster Security for Kubernetes automatically creates and uses its value internally.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.serviceTLS.cert</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An internal certificate that the Scanner service should use for deploying Scanner.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.serviceTLS.key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The private key of the internal certificate that the Scanner service should use.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbServiceTLS.cert</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An internal certificate that the Scanner-db service should use for deploying Scanner database.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbServiceTLS.key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The private key of the internal certificate that the Scanner-db service should use.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="central-services-public-configuration-file_acs-install-helm-customization"><a class="anchor" href="#central-services-public-configuration-file_acs-install-helm-customization"></a>Public configuration file</h3>
+<div class="paragraph">
+<p>This section lists the configurable parameters of the <code>values-public.yaml</code> file.</p>
+</div>
+<div class="sect3">
+<h4 id="central-services-public-configuration-file-image-pull-secrets_acs-install-helm-customization"><a class="anchor" href="#central-services-public-configuration-file-image-pull-secrets_acs-install-helm-customization"></a>Image pull secrets</h4>
+<div class="paragraph">
+<p>Image pull secrets are the credentials required for pulling images from your registry.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imagePullSecrets.allowNone</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> if you are using a custom registry and it allows pulling images without credentials.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imagePullSecrets.useExisting</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A comma-seprated list of secrets as values.
+For example, <code>secret1, secret2</code>.
+Use this option if you have already created pre-existing image pull secrets with the given name in the target namespace.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>imagePullSecrets.useFromDefaultServiceAccount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> if you have already configured the default service account in the target namespace with sufficiently scoped image pull secrets.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="central-services-public-configuration-file-image_acs-install-helm-customization"><a class="anchor" href="#central-services-public-configuration-file-image_acs-install-helm-customization"></a>Image</h4>
+<div class="paragraph">
+<p>Image declares the configuration to set up the main registry, which the Helm chart uses to resolve images for the <code>central.image</code>, <code>scanner.image</code>, and <code>scanner.dbImage</code> parameters.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.registry</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address of your image registry.
+Either use a hostname, such as <code>registry.redhat.io</code>, or a remote registry hostname, such as <code>us.gcr.io/stackrox-mirror</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="central-services-public-configuration-file-environment-variables_acs-install-helm-customization"><a class="anchor" href="#central-services-public-configuration-file-environment-variables_acs-install-helm-customization"></a>Environment variables</h4>
+<div class="paragraph">
+<p>Red Hat Advanced Cluster Security for Kubernetes automatically detects your cluster environment and sets values for <code>env.openshift</code>, <code>env.istio</code>, and <code>env.platform</code>.
+Only set these values to override the automatic cluster environment detection.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.openshift</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> for installing on an OpenShift Container Platform cluster and overriding automatic cluster environment detection.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.istio</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> for installing on an Istio enabled cluster and overriding automatic cluster environment detection.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.platform</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The platform on which you are installing Red Hat Advanced Cluster Security for Kubernetes.
+Set its value to <code>default</code> or <code>gke</code> to specify cluster platform and override automatic cluster environment detection.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>env.offlineMode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to use Red Hat Advanced Cluster Security for Kubernetes in offline mode.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="additional-trusted-certificate-authorities_acs-install-helm-customization"><a class="anchor" href="#additional-trusted-certificate-authorities_acs-install-helm-customization"></a>Additional trusted certificate authorities</h4>
+<div class="paragraph">
+<p>The Red Hat Advanced Cluster Security for Kubernetes automatically references the system root certificates to trust.
+When Central or Scanner must reach out to services that use certificates issued by an authority in your organization or a globally trusted partner organization, you can add trust for these services by specifying the root certificate authority to trust by using the following parameter:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>additionalCAs.&lt;certificate_name&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify the PEM encoded certificate of the root certificate authority to trust.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="central-services-public-configuration-file-central_acs-install-helm-customization"><a class="anchor" href="#central-services-public-configuration-file-central_acs-install-helm-customization"></a>Central</h4>
+<div class="paragraph">
+<p>Configurable parameters for Central.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You must specify a persistent storage option as either <code>hostPath</code> or <code>persistentVolumeClaim</code>.</p>
+</li>
+<li>
+<p>For exposing Central deployment for external access.
+You must specify one parameter, either <code>central.exposure.loadBalancer</code>, <code>central.exposure.nodePort</code>, or <code>central.exposure.route</code>.
+When you do not specify any value for these parameters, you must manually expose Central or access it by using port-forwarding.</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.disableTelemetry</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to disable online telemetry data collection.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.endpointsConfig</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The endpoint configuration options for Central.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.nodeSelector</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the node selector selects tainted nodes, use this parameter to specify a taint toleration key, value, and effect for Central. This parameter is mainly used for infrastructure nodes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.tolerations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the node selector selects tainted nodes, use this parameter to specify a taint toleration key, value, and effect for Central. This parameter is mainly used for infrastructure nodes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.exposeMonitoring</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify <code>true</code> to expose Prometheus metrics endpoint for Central on port number <code>9090</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.image.registry</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom registry that overrides the global <code>image.registry</code> parameter for the Central image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.image.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The custom image name that overrides the default Central image name (<code>main</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.image.tag</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The custom image tag that overrides the default tag for Central image.
+If you specify you own image tag during a new installation, you must manually increment this tag when you to upgrade to a new version by running the <code>helm upgrade</code> command.
+If you mirror Central images in your own registry, do not modify the original image tags.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.image.fullRef</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Full reference including registry address, image name, and image tag for the Central image.
+Setting a value for this parameter overrides the <code>central.image.registry</code>, <code>central.image.name</code>, and <code>central.image.tag</code> parameters.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.resources.requests.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory request for Central to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.resources.requests.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU request for Central to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.resources.limits.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory limit for Central to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.resources.limits.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU limit for Central to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.persistence.hostPath</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The path on the node where Red Hat Advanced Cluster Security for Kubernetes should create a database volume. Red Hat does not recommend using this option.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.persistence.persistentVolumeClaim.claimName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the persistent volume claim (PVC) you are using.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.persistence.persistentVolumeClaim.createClaim</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to create a new persistent volume claim, or <code>false</code> to use an existing claim.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.persistence.persistentVolumeClaim.size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The size (in GiB) of the persistent volume managed by the specified claim.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.exposure.loadBalancer.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to expose Central by using a load balancer.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.exposure.loadBalancer.port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The port number on which to expose Central.
+The default port number is 443.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.exposure.nodePort.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to expose Central by using the node port service.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.exposure.nodePort.port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The port number on which to expose Central.
+When you skip this parameter, OpenShift Container Platform automatically assigns a port number.
+Red Hat recommends that you do not specify a port number if you are exposing Red Hat Advanced Cluster Security for Kubernetes by using a node port.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>central.exposure.route.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to expose Central by using a route.
+This parameter is only available for OpenShift Container Platform clusters.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="central-services-public-configuration-file-scanner_acs-install-helm-customization"><a class="anchor" href="#central-services-public-configuration-file-scanner_acs-install-helm-customization"></a>Scanner</h4>
+<div class="paragraph">
+<p>Configurable parameters for Scanner.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.disable</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to install Red Hat Advanced Cluster Security for Kubernetes without Scanner.
+When you use it with the <code>helm upgrade</code> command, Helm removes existing Scanner deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.replicas</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The number of replicas to create for the Scanner deployment.
+When you use it with the <code>scanner.autoscaling</code> parameter, this value sets the initial number of replicas.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.logLevel</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configure the log level for Scanner.
+Red Hat recommends that you not change the log level&#8217;s default value (<code>INFO</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.nodeSelector</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify a node selector label as <code>label-key: label-value</code> to force Scanner to only schedule on nodes with the specified label.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.tolerations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the node selector selects tainted nodes, use this parameter to specify a taint toleration key, value, and effect for Scanner. This parameter is mainly used for infrastructure nodes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.autoscaling.disable</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to disable autoscaling for Scanner deployment.
+When you disable autoscaling, the <code>minReplicas</code> and <code>maxReplicas</code> parameters do not have any effect.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.autoscaling.minReplicas</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum number of replicas for autoscaling.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.autoscaling.maxReplicas</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of replicas for autoscaling.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.resources.requests.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory request for Scanner to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.resources.requests.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU request for Scanner to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.resources.limits.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory limit for Scanner to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.resources.limits.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU limit for Scanner to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbResources.requests.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory request for Scanner database deployment to override the default values.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbResources.requests.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU request for Scanner database deployment to override the default values.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbResources.limits.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory limit for Scanner database deployment to override the default values.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbResources.limits.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU limit for Scanner database deployment to override the default values.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.image.registry</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom registry for the Scanner image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.image.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The custom image name that overrides the default Scanner image name (<code>scanner</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbImage.registry</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom registry for the Scanner DB image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbImage.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The custom image name that overrides the default Scanner DB image name (<code>scanner-db</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbNodeSelector</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify a node selector label as <code>label-key: label-value</code> to force Scanner DB to only schedule on nodes with the specified label.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbTolerations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the node selector selects tainted nodes, use this parameter to specify a taint toleration key, value, and effect for Scanner DB. This parameter is mainly used for infrastructure nodes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="central-services-public-configuration-file-customizations_acs-install-helm-customization"><a class="anchor" href="#central-services-public-configuration-file-customizations_acs-install-helm-customization"></a>Customization</h4>
+<div class="paragraph">
+<p>Use these parameters to specify additional attributes for all objects that Red Hat Advanced Cluster Security for Kubernetes creates.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.labels</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom label to attach to all objects.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.annotations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom annotation to attach to all objects.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.podLabels</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom label to attach to all deployments.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.podAnnotations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom annotation to attach to all deployments.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.envVars</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom environment variable for all containers in all objects.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.central.labels</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom label to attach to all objects that Central creates.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.central.annotations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom annotation to attach to all objects that Central creates.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.central.podLabels</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom label to attach to all Central deployments.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.central.podAnnotations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom annotation to attach to all Central deployments.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.central.envVars</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom environment variable for all Central containers.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.scanner.labels</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom label to attach to all objects that Scanner creates.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.scanner.annotations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom annotation to attach to all objects that Scanner creates.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.scanner.podLabels</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom label to attach to all Scanner deployments.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.scanner.podAnnotations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom annotation to attach to all Scanner deployments.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.scanner.envVars</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom environment variable for all Scanner containers.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.scanner-db.labels</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom label to attach to all objects that Scanner DB creates.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.scanner-db.annotations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom annotation to attach to all objects that Scanner DB creates.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.scanner-db.podLabels</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom label to attach to all Scanner DB deployments.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.scanner-db.podAnnotations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom annotation to attach to all Scanner DB deployments.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>customize.scanner-db.envVars</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A custom environment variable for all Scanner DB containers.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>You can also use:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>the <code>customize.other.service/*.labels</code> and the <code>customize.other.service/*.annotations</code> parameters, to specify labels and annotations for all objects.</p>
+</li>
+<li>
+<p>or, provide a specific service name, for example, <code>customize.other.service/central-loadbalancer.labels</code> and <code>customize.other.service/central-loadbalancer.annotations</code> as parameters and set their value.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="central-services-public-configuration-file-advance-customization_acs-install-helm-customization"><a class="anchor" href="#central-services-public-configuration-file-advance-customization_acs-install-helm-customization"></a>Advanced customization</h4>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The parameters specified in this section are for information only.
+Red Hat does not support Red Hat Advanced Cluster Security for Kubernetes instances with modified namespace and release names.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>allowNonstandardNamespace</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to deploy Red Hat Advanced Cluster Security for Kubernetes into a namespace other than the default namespace <code>stackrox</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>allowNonstandardReleaseName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to deploy Red Hat Advanced Cluster Security for Kubernetes with a release name other than the default <code>stackrox-central-services</code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="install-central-services-helm-chart_acs-install-helm-customization"><a class="anchor" href="#install-central-services-helm-chart_acs-install-helm-customization"></a>Installing the central-services Helm chart</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After you configure the <code>values-public.yaml</code> and <code>values-private.yaml</code> files, install the <code>central-services</code> Helm chart to deploy the centralized components (Central and Scanner).</p>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>Run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>helm <span class="nb">install</span> <span class="nt">-n</span> stackrox <span class="nt">--create-namespace</span> <span class="se">\</span>
+  stackrox-central-services rhacs/central-services <span class="se">\</span>
+  <span class="nt">-f</span> &lt;path_to_values_public.yaml&gt; <span class="nt">-f</span> &lt;path_to_values_private.yaml&gt; <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use the <code>-f</code> option to specify the paths for your YAML configuration files.</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="change-config-options-after-deployment-central-services_acs-install-helm-customization"><a class="anchor" href="#change-config-options-after-deployment-central-services_acs-install-helm-customization"></a>Changing configuration options after deploying the central-services Helm chart</h3>
+<div class="paragraph">
+<p>You can make changes to any configuration options after you have deployed the <code>central-services</code> Helm chart.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Update the <code>values-public.yaml</code> and <code>values-private.yaml</code> configuration files with new values.</p>
+</li>
+<li>
+<p>Run the <code>helm upgrade</code> command and specify the configuration files using the <code>-f</code> option:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>helm upgrade <span class="nt">-n</span> stackrox <span class="se">\</span>
+  stackrox-central-services rhacs/central-services <span class="se">\</span>
+  <span class="nt">-f</span> &lt;path_to_values_public.yaml&gt; <span class="se">\</span>
+  <span class="nt">-f</span> &lt;path_to_values_private.yaml&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can also specify configuration values using the <code>--set</code> or <code>--set-file</code> parameters.
+However, these options are not saved, and it requires you to manually specify all the options again whenever you make changes.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="generate-init-bundle-helm"><a class="anchor" href="#generate-init-bundle-helm"></a>Generating an init bundle</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before you install the <code>SecuredCluster</code> resource on a cluster, you must create an init bundle. The cluster that has <code>SecuredCluster</code> installed and configured then uses this bundle to authenticate with Central.</p>
+</div>
+<div class="paragraph">
+<p>You can create an init bundle by using the <code>roxctl</code> CLI or from the RHACS portal.</p>
+</div>
+<div class="sect2">
+<h3 id="roxctl-generate-init-bundle_acs-install-helm-customization"><a class="anchor" href="#roxctl-generate-init-bundle_acs-install-helm-customization"></a>Generating an init bundle by using the roxctl CLI</h3>
+<div class="paragraph">
+<p>You can create an init bundle with secrets by using the <code>roxctl</code> CLI.</p>
+</div>
+<div class="paragraph">
+<div class="title">Prerequisites</div>
+<p>You have configured the <code>ROX_API_TOKEN</code> and the <code>ROX_CENTRAL_ADDRESS</code> environment variables.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Set the <code>ROX_API_TOKEN</code> and the <code>ROX_CENTRAL_ADDRESS</code> environment variables:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span><span class="nb">export </span><span class="nv">ROX_API_TOKEN</span><span class="o">=</span>&lt;api_token&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span><span class="nb">export </span><span class="nv">ROX_CENTRAL_ADDRESS</span><span class="o">=</span>&lt;address&gt;:&lt;port_number&gt;</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>Run the following command to generate a cluster init bundle containing secrets:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>roxctl <span class="nt">-e</span> <span class="s2">"</span><span class="nv">$ROX_CENTRAL_ADDRESS</span><span class="s2">"</span> <span class="se">\</span>
+  central init-bundles generate &lt;cluster_init_bundle_name&gt; <span class="se">\</span>
+  <span class="nt">--output</span> cluster_init_bundle.yaml</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Make sure that you store this bundle securely because it contains secrets.
+You can use the same bundle to set up multiple secured clusters.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="../../cli/getting-started-cli.html#installing-roxctl-cli">Installing the <code>roxctl</code> CLI</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="portal-generate-init-bundle_acs-install-helm-customization"><a class="anchor" href="#portal-generate-init-bundle_acs-install-helm-customization"></a>Generating an init bundle by using the RHACS portal</h3>
+<div class="paragraph">
+<p>You can create an init bundle containing secrets by using the RHACS portal.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Find the address of the RHACS portal based on your exposure method:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>For a route:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get route central <span class="nt">-n</span> stackrox</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>For a load balancer:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get service central-loadbalancer <span class="nt">-n</span> stackrox</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>For port forward:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc port-forward svc/central 18443:443 <span class="nt">-n</span> stackrox</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Navigate to <code>https://localhost:18443/</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>On the RHACS portal, navigate to <strong>Platform Configuration</strong> &#8594; <strong>Integrations</strong>.</p>
+</li>
+<li>
+<p>Navigate to the <strong>Authentication Tokens</strong> section and click on <strong>Cluster Init Bundle</strong> (indicated with a Helm icon).</p>
+</li>
+<li>
+<p>Click <strong>Generate bundle</strong>.</p>
+</li>
+<li>
+<p>Enter a name for the cluster init bundle and click <strong>Generate</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Download Helm Values File</strong> to download the generated bundle.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Store this bundle securely because it contains secrets.
+You can use the same bundle to create multiple secured clusters.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Next Step</div>
+<ol class="arabic">
+<li>
+<p>Use the OpenShift Container Platform CLI to create resources using the init bundle.</p>
+</li>
+<li>
+<p>Install Red Hat Advanced Cluster Security for Kubernetes in all clusters that you want to monitor.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configure-secured-cluster-services-helm-chart"><a class="anchor" href="#configure-secured-cluster-services-helm-chart"></a>Configuring the secured-cluster-services Helm chart</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section describes Helm chart configuration parameters that you can use with the <code>helm install</code> and <code>helm upgrade</code> commands.
+You can specify these parameters by using the <code>--set</code> option or by creating YAML configuration files.</p>
+</div>
+<div class="paragraph">
+<p>Create the following files for configuring the Helm chart for installing Red Hat Advanced Cluster Security for Kubernetes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Public configuration file <code>values-public.yaml</code>: Use this file to save all non-sensitive configuration options.</p>
+</li>
+<li>
+<p>Private configuration file <code>values-private.yaml</code>: Use this file to save all sensitive configuration options. Make sure that you store this file securely.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>While using the <code>secured-cluster-services</code> Helm chart, do not modify the <code>values.yaml</code> file that is part of the chart.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="secured-cluster-services-config_acs-install-helm-customization"><a class="anchor" href="#secured-cluster-services-config_acs-install-helm-customization"></a>Configuration parameters</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clusterName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of your cluster.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>centralEndpoint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address of the Central endpoint, including the port number.
+If you are using a non-gRPC capable load balancer, use the WebSocket protocol by prefixing the endpoint address with <code>wss://</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensor.endpoint</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address of the Sensor endpoint including port number.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensor.imagePullPolicy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image pull policy for the Sensor container.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensor.serviceTLS.cert</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The internal service-to-service TLS certificate that Sensor uses.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensor.serviceTLS.key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The internal service-to-service TLS certificate key that Sensor uses.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensor.resources.requests.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory request for the Sensor container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensor.resources.requests.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU request for the Sensor container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensor.resources.limits.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory limit for the Sensor container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensor.resources.limits.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU limit for the Sensor container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensor.nodeSelector</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify a node selector label as <code>label-key: label-value</code> to force Sensor to only schedule on nodes with the specified label.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensor.tolerations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the node selector selects tainted nodes, use this parameter to specify a taint toleration key, value, and effect for Sensor. This parameter is mainly used for infrastructure nodes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.main.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the <code>main</code> image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.collector.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the Collector image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.main.registry</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address of the registry you are using for the main image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.collector.registry</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Address of the registry you are using for the Collector image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.main.pullPolicy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image pull policy for <code>main</code> images.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.collector.pullPolicy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image pull policy for the Collector images.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.main.tag</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tag of <code>main</code> image to use.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>image.collector.tag</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tag of <code>collector</code> image to use.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.collectionMethod</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Either <code>EBPF</code>, <code>KERNEL_MODULE</code>, or <code>NO_COLLECTION</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.imagePullPolicy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image pull policy for the Collector container.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.complianceImagePullPolicy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image pull policy for the Compliance container.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.disableTaintTolerations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you specify <code>false</code>, tolerations are applied to Collector, and the collector pods can schedule onto all nodes with taints.
+If you specify it as <code>true</code>, no tolerations are applied, and the collector pods are not scheduled onto nodes with taints.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.resources.requests.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory request for the Collector container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.resources.requests.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU request for the Collector container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.resources.limits.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory limit for the Collector container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.resources.limits.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU limit for the Collector container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.complianceResources.requests.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory request for the Compliance container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.complianceResources.requests.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU request for the Compliance container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.complianceResources.limits.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory limit for the Compliance container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.complianceResources.limits.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU limit for the Compliance container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.serviceTLS.cert</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The internal service-to-service TLS certificate that Collector uses.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.serviceTLS.key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The internal service-to-service TLS certificate key that Collector uses.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.listenOnCreates</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This setting controls whether Kubernetes is configured to contact Red Hat Advanced Cluster Security for Kubernetes with <code>AdmissionReview</code> requests for workload creation events.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.listenOnUpdates</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When you set this parameter as <code>false</code>, Red Hat Advanced Cluster Security for Kubernetes creates the <code>ValidatingWebhookConfiguration</code> in a way that causes the Kubernetes API server not to send object update events.
+Since the volume of object updates is usually higher than the object creates, leaving this as <code>false</code> limits the load on the admission control service and decreases the chances of a malfunctioning admission control service.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.listenOnEvents</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This setting controls whether the cluster is configured to contact Red Hat Advanced Cluster Security for Kubernetes with <code>AdmissionReview</code> requests for Kubernetes <code>exec</code> and <code>portforward</code> events.
+Red Hat Advanced Cluster Security for Kubernetes does not support this feature on OpenShift Container Platform 3.11.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.dynamic.enforceOnCreates</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This setting controls whether Red Hat Advanced Cluster Security for Kubernetes evaluates policies;
+if it is disabled, all AdmissionReview requests are automatically accepted.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.dynamic.enforceOnUpdates</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This setting controls the behavior of the admission control service.
+You must specify <code>listenOnUpdates</code> as <code>true</code> for this to work.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.dynamic.scanInline</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you set this option to <code>true</code>, the admission control service requests an image scan before making an admission decision.
+Since image scans take several seconds, enable this option only if you can ensure that all images used in your cluster are scanned before deployment (for example, by a CI integration during image build).
+This option corresponds to the <strong>Contact image scanners</strong> option in the RHACS Portal.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.dynamic.disableBypass</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set it to <code>true</code> to disable bypassing the Admission Controller.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.dynamic.timeout</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum time, in seconds, Red Hat Advanced Cluster Security for Kubernetes should wait while evaluating admission review requests.
+Use this to set request timeouts when you enable image scanning.
+If the image scan runs longer than the specified time, Red Hat Advanced Cluster Security for Kubernetes accepts the request.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.resources.requests.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory request for the Admission Control container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.resources.requests.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU request for the Admission Control container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.resources.limits.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory limit for the Admission Control container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.resources.limits.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU limit for the Admission Control container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.nodeSelector</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify a node selector label as <code>label-key: label-value</code> to force Admission Control to only schedule on nodes with the specified label.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.tolerations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the node selector selects tainted nodes, use this parameter to specify a taint toleration key, value, and effect for Admission Control. This parameter is mainly used for infrastructure nodes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.serviceTLS.cert</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The internal service-to-service TLS certificate that Admission Control uses.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.serviceTLS.key</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The internal service-to-service TLS certificate key that Admission Control uses.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>registryOverride</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use this parameter to override the default <code>docker.io</code> registry.
+Specify the name of your registry if you are using some other registry.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.disableTaintTolerations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you specify <code>false</code>, tolerations are applied to Collector, and the Collector pods can schedule onto all nodes with taints.
+If you specify it as <code>true</code>, no tolerations are applied, and the Collector pods are not scheduled onto nodes with taints.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createUpgraderServiceAccount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify <code>true</code> to create the <code>sensor-upgrader</code> account.
+By default, Red Hat Advanced Cluster Security for Kubernetes creates a service account called <code>sensor-upgrader</code> in each secured cluster.
+This account is highly privileged but is only used during upgrades.
+If you do not create this account, you must complete future upgrades manually if the Sensor does not have enough permissions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createSecrets</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify <code>false</code> to skip the orchestrator secret creation for the Sensor, Collector, and Admission Controller.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.slimMode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify <code>true</code> if you want to use a slim Collector image for deploying Collector.
+Using slim Collector images requires Central to provide the matching kernel module or eBPF probe.
+If you are running Red Hat Advanced Cluster Security for Kubernetes in offline mode, you must download a kernel support package from <a href="https://install.stackrox.io/collector/support-packages/index.html">stackrox.io</a> and upload it to Central for slim Collectors to function.
+Otherwise, you must ensure that Central can access the online probe repository hosted at <a href="https://collector-modules.stackrox.io/">https://collector-modules.stackrox.io/</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>sensor.resources</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resource specification for Sensor.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>admissionControl.resources</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resource specification for Admission Controller.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.resources</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resource specification for Collector.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collector.complianceResources</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resource specification for Collector&#8217;s Compliance container.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exposeMonitoring</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you set this option to <code>true</code>,  Red Hat Advanced Cluster Security for Kubernetes exposes Prometheus metrics endpoints on port number 9090 for the Sensor, Collector, and the Admission Controller.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>auditLogs.disableCollection</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you set this option to <code>true</code>, Red Hat Advanced Cluster Security for Kubernetes disables the audit log detection features used to detect access and modifications to configuration maps and secrets.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.disable</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you set this option to <code>false</code>, Red Hat Advanced Cluster Security for Kubernetes deploys a lightweight scanner and Scanner DB in the secured cluster to allow scanning images on OpenShift Container Registry. Enabling Scanner is only supported on OpenShift. Defaults to <code>true</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbTolerations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the node selector selects tainted nodes, use this parameter to specify a taint toleration key, value, and effect for Scanner DB.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.replicas</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resource specification for Collector&#8217;s Compliance container.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.logLevel</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Setting this parameter allows you to modify the scanner log level. Use this option only for troubleshooting purposes.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.autoscaling.disable</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If you set this option to <code>true</code>, Red Hat Advanced Cluster Security for Kubernetes disables autoscaling on the Scanner deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.autoscaling.minReplicas</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The minimum number of replicas for autoscaling. Defaults to 2.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.autoscaling.maxReplicas</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The maximum number of replicas for autoscaling. Defaults to 5.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.nodeSelector</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify a node selector label as <code>label-key: label-value</code> to force Scanner to only schedule on nodes with the specified label.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.tolerations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the node selector selects tainted nodes, use this parameter to specify a taint toleration key, value, and effect for Scanner.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbNodeSelector</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Specify a node selector label as <code>label-key: label-value</code> to force Scanner DB to only schedule on nodes with the specified label.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbTolerations</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If the node selector selects tainted nodes, use this parameter to specify a taint toleration key, value, and effect for Scanner DB.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.resources.requests.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory request for the Scanner container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.resources.requests.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU request for the Scanner container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.resources.limits.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory limit for the Scanner container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.resources.limits.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU limit for the Scanner container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbResources.requests.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory request for the Scanner DB container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbResources.requests.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU request for the Scanner DB container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbResources.limits.memory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The memory limit for the Scanner DB container. Use this parameter to override the default value.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scanner.dbResources.limits.cpu</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The CPU limit for the Scanner DB container. Use this parameter to override the default value.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="secured-cluster-services-environment-variables_acs-install-helm-customization"><a class="anchor" href="#secured-cluster-services-environment-variables_acs-install-helm-customization"></a>Environment variables</h4>
+<div class="paragraph">
+<p>You can specify environment variables for Sensor and Admission Controller in the following format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="yaml"><span class="na">customize</span><span class="pi">:</span>
+  <span class="na">envVars</span><span class="pi">:</span>
+    <span class="na">ENV_VAR1</span><span class="pi">:</span> <span class="s2">"</span><span class="s">value1"</span>
+    <span class="na">ENV_VAR2</span><span class="pi">:</span> <span class="s2">"</span><span class="s">value2"</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>customize</code> setting allows you to specify custom Kubernetes metadata (labels and annotations) for all objects created by this Helm chart and additional pod labels, pod annotations, and container environment variables for workloads.</p>
+</div>
+<div class="paragraph">
+<p>The configuration is hierarchical, in the sense that metadata defined at a more generic scope (for example, for all objects) can be overridden by metadata defined at a narrower scope (for example, only for the Sensor deployment).</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="install-secured-cluster-services-helm-chart_acs-install-helm-customization"><a class="anchor" href="#install-secured-cluster-services-helm-chart_acs-install-helm-customization"></a>Installing the secured-cluster-services Helm chart</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After you configure the <code>values-public.yaml</code> and <code>values-private.yaml</code> files, install the <code>secured-cluster-services</code> Helm chart to deploy the per-cluster and per-node components (Sensor, Admission Controller, and Collector).</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To install Collector on systems that have Unified Extensible Firmware Interface (UEFI) and that have Secure Boot enabled, you must use eBPF probes because kernel modules are unsigned, and the UEFI firmware cannot load unsigned packages. Collector identifies Secure Boot status at the start and switches to eBPF probes if required.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Procedure</div>
+<ul>
+<li>
+<p>Run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>helm <span class="nb">install</span> <span class="nt">-n</span> stackrox <span class="nt">--create-namespace</span> <span class="se">\</span>
+  stackrox-secured-cluster-services rhacs/secured-cluster-services <span class="se">\</span>
+  <span class="nt">-f</span> &lt;name_of_cluster_init_bundle.yaml&gt; <span class="se">\</span>
+  <span class="nt">-f</span> &lt;path_to_values_public.yaml&gt; <span class="nt">-f</span> &lt;path_to_values_private.yaml&gt; <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Use the <code>-f</code> option to specify the paths for your YAML configuration files.</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To deploy <code>secured-cluster-services</code> Helm chart by using a continuous integration (CI) system, pass the init bundle YAML file as an environment variable to the <code>helm install</code> command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>helm <span class="nb">install</span> ... <span class="nt">-f</span> &lt;<span class="o">(</span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$INIT_BUNDLE_YAML_SECRET</span><span class="s2">"</span><span class="o">)</span> <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>If you are using base64 encoded variables, use the <code>helm install &#8230;&#8203; -f &lt;(echo "$INIT_BUNDLE_YAML_SECRET" | base64 --decode)</code> command instead.</td>
+</tr>
+</table>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="change-config-options-after-deployment_acs-install-helm-customization"><a class="anchor" href="#change-config-options-after-deployment_acs-install-helm-customization"></a>Changing configuration options after deploying the secured-cluster-services Helm chart</h3>
+<div class="paragraph">
+<p>You can make changes to any configuration options after you have deployed the <code>secured-cluster-services</code> Helm chart.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Update the <code>values-public.yaml</code> and <code>values-private.yaml</code> configuration files with new values.</p>
+</li>
+<li>
+<p>Run the <code>helm upgrade</code> command and specify the configuration files using the <code>-f</code> option:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>helm upgrade <span class="nt">-n</span> stackrox <span class="se">\</span>
+  stackrox-secured-cluster-services rhacs/secured-cluster-services <span class="se">\</span>
+  <span class="nt">--reuse-values</span> <span class="se">\ </span><i class="conum" data-value="1"></i><b>(1)</b>
+<span class="gp">  -f &lt;path_to_values_public.yaml&gt;</span><span class="w"> </span><span class="se">\</span>
+  <span class="nt">-f</span> &lt;path_to_values_private.yaml&gt;</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>You must specify the <code>--reuse-values</code> parameter, otherwise the Helm upgrade command resets all previously configured settings.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can also specify configuration values using the <code>--set</code> or <code>--set-file</code> parameters.
+However, these options are not saved, and it requires you to manually specify all the options again whenever you make changes.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="verify-acs-installation_acs-install-helm-customization"><a class="anchor" href="#verify-acs-installation_acs-install-helm-customization"></a>Verifying installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After you complete the installation, run a few vulnerable applications and navigate to the RHACS portal to evaluate the results of security assessments and policy violations.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The sample applications listed in the following section contain critical vulnerabilities and they are specifically designed to verify the build and deploy-time assessment features of Red Hat Advanced Cluster Security for Kubernetes.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To verify installation:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Find the address of the RHACS portal based on your exposure method:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>For a route:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get route central <span class="nt">-n</span> stackrox</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>For a load balancer:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc get service central-loadbalancer <span class="nt">-n</span> stackrox</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>For port forward:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Run the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc port-forward svc/central 18443:443 <span class="nt">-n</span> stackrox</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Navigate to <code>https://localhost:18443/</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Using the OpenShift Container Platform CLI, create a new project:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc new-project <span class="nb">test</span></code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Start some applications with critical vulnerabilities:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight nowrap"><code data-lang="terminal"><span class="gp">$</span><span class="w"> </span>oc run shell <span class="nt">--labels</span><span class="o">=</span><span class="nv">app</span><span class="o">=</span>shellshock,team<span class="o">=</span>test-team <span class="se">\</span>
+  <span class="nt">--image</span><span class="o">=</span>vulnerables/cve-2014-6271 <span class="nt">-n</span> <span class="nb">test</span>
+<span class="gp">$</span><span class="w"> </span>oc run samba <span class="nt">--labels</span><span class="o">=</span><span class="nv">app</span><span class="o">=</span>rce <span class="se">\</span>
+  <span class="nt">--image</span><span class="o">=</span>vulnerables/cve-2017-7494 <span class="nt">-n</span> <span class="nb">test</span></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Red Hat Advanced Cluster Security for Kubernetes automatically scans these deployments for security risk and policy violations as soon as they are submitted to the cluster. Navigate to the RHACS portal to view the violations. You can log in to the RHACS portal by using the default username <strong>admin</strong> and the generated password.</p>
+</div>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-acs';
+  var version = 'Branch Build';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+      distros['openshift-dedicated'] = ['docs_dedicated_v3']
+    }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.com/hubfs/images/logos/Logo-RedHat-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+                <p class="text-nowrap">Copyright © 2021 Red Hat, Inc.</span></p>
+            </div>
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.innerWidth >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1008) {
+        sidebar.style.display = 'block';
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if (window.innerWidth < 1008) {
+        sidebar.style.display = 'none';
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+      const ioConfiguration = {
+        "rootMargin": "-120px 0px -400px 0px",
+        "threshold": 0
+      };
+
+      const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+        entries.forEach(entry => {
+          var id = entry.target.getAttribute('id');
+          //fight with js
+          document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+        });
+      });
+
+      //track all h1-4 headings that have an id
+      document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+        observer.observe(h);
+      });
+
+      //runs when the IntersectionObserver fires
+      function setCurrent(e) {
+        var allTocLinks = document.querySelectorAll("#toc li a");
+        e.map(i => {
+          if (i.isIntersecting && i.intersectionRatio >= 1) {
+            allTocLinks.forEach(link => link.classList.remove("toc-active"));
+            document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active');
+          }
+        });
+      };
+
+      //make clicked toc item active and stop IntersectionObserver
+      $("#toc a").click(function() {
+        //stop tracking all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.unobserve(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.scrollY==0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          }
+        };
+        tocItems[0].classList.add("toc-active");
+      })
+  </script>
+
+  <!--adjust sidebar and toc when footer is displayed -->
+  <script type="text/javascript">
+    sidebar = document.querySelector('.sidebar')
+    toc = document.querySelector('#toc')
+    main = document.querySelector('.main')
+    okd_footer = document.querySelector('.footer-origin-docs')
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if (window.innerWidth >= 1008) {
+        if(sidebar !== null && toc !== null) {
+          if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+              sidebar.style.marginBottom = "38px";
+              toc.style.bottom = "35px";
+              main.style.marginBottom = "35px";
+              //okd footer
+              if(okd_footer !== null) {
+                sidebar.style.marginBottom = "176px";
+                toc.style.bottom = "175px";
+                main.style.marginBottom = "135px";
+              };
+            };
+          if(document.documentElement.scrollHeight != window.pageYOffset + window.innerHeight) {
+            sidebar.style.marginBottom = "0px";
+            toc.style.bottom = "0px";
+          }
+        }
+      }
+    })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if (window.innerWidth < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+</body>
+
+</html>

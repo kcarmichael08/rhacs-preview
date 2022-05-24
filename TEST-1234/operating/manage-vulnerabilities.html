@@ -1,0 +1,3195 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  <title>Managing vulnerabilities | Operating | Red Hat Advanced Cluster Security for Kubernetes Branch Build</title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css">
+  <link href="https://docs.openshift.com/container-platform/4.1/_stylesheets/search.css" rel="stylesheet" />
+  <link href="https://docs.openshift.com/container-platform/4.1/_stylesheets/autumn.css" rel="stylesheet" />
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png">
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css">
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen, print" />
+  <link href="https://docs.openshift.com/container-platform/4.1/_stylesheets/docs.css" rel="stylesheet" />
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PMDVKG');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Adobe DTM -->
+<script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+<!-- End Adobe DTM -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+  <script>
+
+    function getPDF() {
+      var element = document.getElementsByClassName('main');
+      
+      var opt = {
+        margin:       10,
+        filename:     'operating/manage-vulnerabilities.pdf',
+        html2canvas:  { windowWidth: 650 },
+        image:        { type: 'jpeg', quality: 0.98 }
+      };
+      html2pdf().set(opt).from(element[0]).save();
+    }
+  </script>
+
+</head>
+
+<body onload="selectVersion('Branch Build');">
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PMDVKG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://manage.openshift.com" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb">
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+        <a href="../welcome/index.html">Red Hat Advanced Cluster Security for Kubernetes Branch Build</a>
+        
+      </li>
+      <li class="hidden-xs active">
+        <a href="../operating/view-dashboard.html">Operating</a>
+      </li>
+      
+      <li class="hidden-xs active">
+        Managing vulnerabilities
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/rhacs-docs-Branch Build/operating/manage-vulnerabilities.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://github.com/openshift/openshift-docs/issues/new?title=[RHACS] Issue in file operating/manage-vulnerabilities.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="getPDF();"><span class="material-icons-outlined" title="Download PDF (may take a while for large pages)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0">
+        <span id="tgSpan0" class="fa fa-angle-right"></span>
+          About
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup0" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../welcome/index.html">Welcome</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1">
+        <span id="tgSpan1" class="fa fa-angle-right"></span>
+          Release notes
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup1" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/369-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.69</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/368-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.68</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/367-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.67</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/366-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.66</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/365-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.65</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/364-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.64</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/363-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.63</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/3062-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.0.62</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/3061-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.0.61</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/3060-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.0.60</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2">
+        <span id="tgSpan2" class="fa fa-angle-right"></span>
+          Architecture
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup2" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../architecture/acs-architecture.html">Product architecture</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3">
+        <span id="tgSpan3" class="fa fa-angle-right"></span>
+          Installing
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup3" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../installing/prerequisites.html">Installation prerequisites</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../installing/acs-installation-platforms.html">Installation platforms and methods</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../installing/install-ocp-operator.html">Installing by using an Operator</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+            <!-- this topic contains subtopics - Welcome 2 -->
+
+
+            <!-- start a new heading area -->
+
+            <li class="nav-header">
+              <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-3-3">
+                <span id="sgSpan-3-3" class="fa fa-caret-right"></span>
+                  &nbsp;Installing using Helm charts
+
+                  <!-- prints out the names of the second level books with arrow down or to right
+                  So in this case: Welcome 2 -->
+
+              </a>
+              <ul id="topicSubGroup-3-3" class="nav-tertiary list-unstyled collapse">
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../installing/installing_helm/install-helm-quick.html">
+                      Installing quickly
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../installing/installing_helm/install-helm-customization.html">
+                      Installing with customizations
+                    </a>
+                  </li>
+
+                
+
+              </ul>
+            </li>
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../installing/install-quick-roxctl.html">Installing using the roxctl CLI</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../installing/uninstall-acs.html">Uninstalling Red Hat Advanced Cluster Security for Kubernetes</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup4">
+        <span id="tgSpan4" class="fa fa-angle-right"></span>
+          Configuring
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup4" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/add-custom-certificates.html">Adding custom certificates</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/add-trusted-ca.html">Adding trusted certificate authorities</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/reissue-internal-certificates.html">Reissuing internal certificates</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/add-security-notices.html">Adding security notices</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/enable-offline-mode.html">Enabling offline mode</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/enable-alert-data-retention.html">Enabling alert data retention</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/expose-portal-over-http.html">Exposing the RHACS portal over HTTP</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/configure-automatic-upgrades.html">Configuring automatic upgrades for secured clusters</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/configure-proxy.html">Configuring a proxy for external network access</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/generate-diagnostic-bundle.html">Generating a diagnostic bundle</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/configure-endpoints.html">Configuring endpoints</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/monitor-acs.html">Monitoring with Prometheus</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/configure-audit-logging.html">Enabling audit logging</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup5">
+        <span id="tgSpan5" class="fa fa-angle-down"></span>
+          Operating
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup5" class="collapse in list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/view-dashboard.html">Viewing the dashboard</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/manage-compliance.html">Managing compliance</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/evaluate-security-risks.html">Evaluating security risks</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/use-admission-controller-enforcement.html">Using admission controller enforcement</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/manage-security-policies.html">Managing security policies</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/manage-network-policies.html">Managing network policies</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/review-cluster-configuration.html">Reviewing cluster configuration</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/examine-images-for-vulnerabilities.html">Examining images for vulnerabilities</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class=" active" href="../operating/manage-vulnerabilities.html">Managing vulnerabilities</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/respond-to-violations.html">Responding to violations</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/search-filter.html">Searching and filtering</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+            <!-- this topic contains subtopics - Welcome 2 -->
+
+
+            <!-- start a new heading area -->
+
+            <li class="nav-header">
+              <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-5-11">
+                <span id="sgSpan-5-11" class="fa fa-caret-right"></span>
+                  &nbsp;Managing user access
+
+                  <!-- prints out the names of the second level books with arrow down or to right
+                  So in this case: Welcome 2 -->
+
+              </a>
+              <ul id="topicSubGroup-5-11" class="nav-tertiary list-unstyled collapse">
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../operating/manage-user-access/configure-okta-identity-cloud.html">
+                      Configuring Okta Identity Cloud as a SAML 2.0 identity provider
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../operating/manage-user-access/configure-google-workspace-identity.html">
+                      Configuring Google Workspace as an OIDC identity provider
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../operating/manage-user-access/configure-ocp-oauth.html">
+                      Configuring OpenShift Container Platform OAuth server as an identity provider
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../operating/manage-user-access/manage-role-based-access-control-3630.html">
+                      Managing RBAC in Red Hat Advanced Cluster Security for Kubernetes 3.63 and newer
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../operating/manage-user-access/enable-pki-authentication.html">
+                      Enabling PKI authentication
+                    </a>
+                  </li>
+
+                
+
+              </ul>
+            </li>
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/use-system-health-dashboard.html">Using the system health dashboard</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup6">
+        <span id="tgSpan6" class="fa fa-angle-right"></span>
+          Integrating
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup6" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-image-registries.html">Integrating with image registries</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-ci-systems.html">Integrating with CI systems</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-pagerduty.html">Integrating with PagerDuty</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-slack.html">Integrating with Slack</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-using-generic-webhooks.html">Integrating by using generic webhooks</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-sumologic.html">Integrating with Sumo Logic</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-google-cloud-storage.html">Integrating with Google Cloud Storage</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-using-syslog-protocol.html">Integrating by using the syslog protocol</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-amazon-s3.html">Integrating with Amazon S3</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-google-cloud-scc.html">Integrating with Google Cloud Security Command Center</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-splunk.html">Integrating with Splunk</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-image-vulnerability-scanners.html">Integrating with image vulnerability scanners</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-jira.html">Integrating with Jira</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-email.html">Integrating with Email</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup7">
+        <span id="tgSpan7" class="fa fa-angle-right"></span>
+          Backup and restore
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup7" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../backup_and_restore/backing-up-acs.html">Backing up Red Hat Advanced Cluster Security for Kubernetes</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../backup_and_restore/restore-acs.html">Restoring from a backup</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup8">
+        <span id="tgSpan8" class="fa fa-angle-right"></span>
+          Upgrading
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup8" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../upgrading/upgrade-helm.html">Upgrading using Helm charts</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../upgrading/upgrade-roxctl.html">Upgrading using the roxctl CLI</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup9">
+        <span id="tgSpan9" class="fa fa-angle-right"></span>
+          roxctl CLI
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup9" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../cli/getting-started-cli.html">Getting started with the roxctl CLI</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup10">
+        <span id="tgSpan10" class="fa fa-angle-right"></span>
+          Support
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup10" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../support/getting-support.html">Getting support for Red Hat Advanced Cluster Security for Kubernetes</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../support/getting-support-stackrox.html">Getting support for the StackRox Kubernetes Security Platform</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            Managing vulnerabilities
+          </h1>
+        </div>
+        
+        
+        <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#vulnerability-management-proccess_acs-operating-manage-vulnerabilities">Vulnerability management proccess</a>
+<ul class="sectlevel2">
+<li><a href="#vulnerability-management-asset-assessment_acs-operating-manage-vulnerabilities">Performing asset assessment</a></li>
+<li><a href="#vulnerability-management-prioritizing_acs-operating-manage-vulnerabilities">Prioritizing the vulnerabilities</a></li>
+<li><a href="#vulnerability-management-assess-exposure_acs-operating-manage-vulnerabilities">Assessing the exposure</a></li>
+<li><a href="#vulnerability-management-take-action_acs-operating-manage-vulnerabilities">Taking action</a></li>
+<li><a href="#vulnerability-management-accept-risks_acs-operating-manage-vulnerabilities">Accepting risks</a></li>
+<li><a href="#vulnerability-management-reporting_acs-operating-manage-vulnerabilities">Reporting vulnerabilities to teams</a></li>
+</ul>
+</li>
+<li><a href="#common-tasks">Common tasks</a>
+<ul class="sectlevel2">
+<li><a href="#find-critical-cves-impacting-your-infrastructure_acs-operating-manage-vulnerabilities">Finding critical CVEs impacting your infrastructure</a></li>
+<li><a href="#find-the-most-vulnerable-image-components_acs-operating-manage-vulnerabilities">Finding the most vulnerable image components</a></li>
+<li><a href="#identify-container-image-layer-that-introduces-vulnerabilities_acs-operating-manage-vulnerabilities">Identifying the container image layer that introduces vulnerabilities</a></li>
+<li><a href="#view-details-only-for-fixable-cves_acs-operating-manage-vulnerabilities">Viewing details only for fixable CVEs</a></li>
+<li><a href="#identify-operating-system-of-the-base-image_acs-operating-manage-vulnerabilities">Identifying the operating system of the base image</a></li>
+<li><a href="#top-risky-objects_acs-operating-manage-vulnerabilities">Identifying top risky objects</a></li>
+<li><a href="#top-risky-images-components_acs-operating-manage-vulnerabilities">Identifying top riskiest images and components</a></li>
+<li><a href="#viewing-dockerfile-for-image_acs-operating-manage-vulnerabilities">Viewing the Dockerfile for an image</a></li>
+<li><a href="#disable-identify-vulnerabilities-in-nodes_acs-operating-manage-vulnerabilities">Disabling identifying vulnerabilities in nodes</a></li>
+<li><a href="#scan-inactive-images_acs-operating-manage-vulnerabilities">Scanning inactive images</a></li>
+<li><a href="#create-policies-to-block-specific-cves_acs-operating-manage-vulnerabilities">Creating policies to block specific CVEs</a></li>
+<li><a href="#view-recently-detected-vulnerabilities_acs-operating-manage-vulnerabilities">Viewing recently detected vulnerabilities</a></li>
+<li><a href="#view-most-common-vulnerabilities_acs-operating-manage-vulnerabilities">Viewing the most common vulnerabilities</a></li>
+<li><a href="#identify-deployments-with-most-severe-policy-violations_acs-operating-manage-vulnerabilities">Identifying deployments with most severe policy violations</a></li>
+<li><a href="#find-clusters-with-most-kubernetes-and-istio-vulnerabilities_acs-operating-manage-vulnerabilities">Finding clusters with most Kubernetes and Istio vulnerabilities</a></li>
+<li><a href="#identify-vulnerabilities-in-nodes_acs-operating-manage-vulnerabilities">Identifying vulnerabilities in nodes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="paragraph _abstract">
+<p>Security vulnerabilities in your environment may be exploited by an attacker to perform unauthorized actions such as denial of service, remote code execution, or unauthorized access to sensitive data.
+Therefore, the management of vulnerabilities is a foundational step towards a successful Kubernetes security program.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="vulnerability-management-proccess_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-proccess_acs-operating-manage-vulnerabilities"></a>Vulnerability management proccess</h2>
+<div class="sectionbody">
+<div class="paragraph _abstract">
+<p>Vulnerability management is a continuous process to identify and remediate vulnerabilities. Red Hat Advanced Cluster Security for Kubernetes helps you to facilitate a vulnerability management proccess.</p>
+</div>
+<div class="paragraph">
+<p>A successful vulnerability management program often includes the following critical tasks:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Performing asset assessment</p>
+</li>
+<li>
+<p>Prioritizing the vulnerabilities</p>
+</li>
+<li>
+<p>Assessing the exposure</p>
+</li>
+<li>
+<p>Taking action</p>
+</li>
+<li>
+<p>Continuously reassessing assets</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Red Hat Advanced Cluster Security for Kubernetes helps organizations to perform continuous assessments on their OpenShift Container Platform and Kubernetes clusters. It provides organizations with the contextual information they need to prioritize and act on vulnerabilities in their environment more effectively.</p>
+</div>
+<div class="sect2">
+<h3 id="vulnerability-management-asset-assessment_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-asset-assessment_acs-operating-manage-vulnerabilities"></a>Performing asset assessment</h3>
+<div class="paragraph _abstract">
+<p>Performing an assessment of an organization&#8217;s assets involve the following actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Identifying the assets in your environment.</p>
+</li>
+<li>
+<p>Scanning these assets to identify known vulnerabilities.</p>
+</li>
+<li>
+<p>Reporting on the vulnerabilities in your environment to impacted stakeholders.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When you install Red Hat Advanced Cluster Security for Kubernetes on your Kubernetes or OpenShift Container Platform cluster, it first aggregates the assets running inside of your cluster to help you identify those assets.Red Hat Advanced Cluster Security for Kubernetes allows organizations to perform continuous assessments on their OpenShift Container Platform and Kubernetes clusters.
+It provides organizations with the contextual information to prioritize and act on vulnerabilities in their environment more effectively.</p>
+</div>
+<div class="paragraph">
+<p>Important assets that should be monitored by the organization&#8217;s vulnerability management process using Red Hat Advanced Cluster Security for Kubernetes include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Components</strong>: Components are software packages that may be used as part of an image or run on a node. Components are the lowest level where vulnerabilities are present. Therefore, organizations must upgrade, modify or remove software components in some way to remediate vulnerabilities.</p>
+</li>
+<li>
+<p><strong>Image</strong>: A collection of software components and code that create an environment to run an executable portion of code. Images are where you upgrade components to fix vulnerabilities.</p>
+</li>
+<li>
+<p><strong>Nodes</strong>: A server used to manage and run applications using OpenShift or Kubernetes and the components that make up the OpenShift Container Platform or Kubernetes service.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Red Hat Advanced Cluster Security for Kubernetes groups these assets into the following structures:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Deployment</strong>: A definition of an application in Kubernetes that may run pods with containers based on one or many images.</p>
+</li>
+<li>
+<p><strong>Namespace</strong>: A grouping of resources such as Deployments that support and isolate an application.</p>
+</li>
+<li>
+<p><strong>Cluster</strong>: A group of nodes used to run applications using OpenShift or Kubernetes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Red Hat Advanced Cluster Security for Kubernetes scans the assets for known vulnerabilities and uses the Common Vulnerabilities and Exposures (CVE) data to assess the impact of a known vulnerability.</p>
+</div>
+<div class="sect3">
+<h4 id="vulnerability-management-view-applications-vulnerability_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-view-applications-vulnerability_acs-operating-manage-vulnerabilities"></a>Viewing application vulnerabilities</h4>
+<div class="paragraph _abstract">
+<p>You can view application vulnerabilities in Red Hat Advanced Cluster Security for Kubernetes.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>On the RHACS portal, navigate to <strong>Vulnerability Management</strong> &#8594; <strong>Dashboard</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Dashboard</strong> view header, select <strong>Application &amp; Infrastructure</strong> &#8594; <strong>Namespaces</strong> or <strong>Deployments</strong>.</p>
+</li>
+<li>
+<p>From the list, search for and select the <strong>Namespace</strong> or <strong>Deployement</strong> you want to review.</p>
+</li>
+<li>
+<p>To get more information about the application, selecte an entity from <strong>Related entities</strong> on the right.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="vulnerability-management-view-image-vulnerability_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-view-image-vulnerability_acs-operating-manage-vulnerabilities"></a>Viewing image vulnerabilities</h4>
+<div class="paragraph _abstract">
+<p>You can view image vulnerabilities in Red Hat Advanced Cluster Security for Kubernetes.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>On the RHACS portal, navigate to <strong>Vulnerability Management</strong> &#8594; <strong>Dashboard</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Dashboard</strong> view header, select <strong>Images</strong>.</p>
+</li>
+<li>
+<p>From the list of images, select the image you want to investigate. You can also filter the list.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Enter <strong>Image</strong> in the search bar and then select the <strong>Image</strong> attribute.</p>
+</li>
+<li>
+<p>Enter the image name in the search bar.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>In the image details view, review the listed CVEs and prioritize taking action to address the impacted components.</p>
+</li>
+<li>
+<p>Select <strong>Components</strong> from <strong>Related entities</strong> on the right to get more information about all the commponents that are impacted by the selected image. Or select <strong>Components</strong> from the <strong>Affected components</strong> column under the <strong>Image findings</strong> section for finding components affected by specific CVEs.</p>
+</li>
+</ol>
+</div>
+<div class="ulist additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="../operating/search-filter.html#use-local-page-filtering_search-filter">Using local page filtering</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="vulnerability-management-view-infrastructure-vulnerability_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-view-infrastructure-vulnerability_acs-operating-manage-vulnerabilities"></a>Viewing infrastructure vulnerabilities</h4>
+<div class="paragraph _abstract">
+<p>You can view vulnerabilities in nodes by using Red Hat Advanced Cluster Security for Kubernetes.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>On the RHACS portal, navigate to <strong>Vulnerability Management</strong> &#8594; <strong>Dashboard</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Dashboard</strong> view header, select <strong>Application &amp; Infrastructure</strong> &#8594; <strong>Cluster</strong>.</p>
+</li>
+<li>
+<p>From the list of clusters, select the cluster you want to investigate.</p>
+</li>
+<li>
+<p>Review the clusters vulnerabilities and prioritize taking action on the impacted nodes on the cluster.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="vulnerability-management-view-node-vulnerability_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-view-node-vulnerability_acs-operating-manage-vulnerabilities"></a>Viewing node vulnerabilities</h4>
+<div class="paragraph">
+<p>You can view vulnerabilities in specific nodes by using Red Hat Advanced Cluster Security for Kubernetes.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>On the RHACS portal, navigate to <strong>Vulnerability Management</strong> &#8594; <strong>Dashboard</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Dashboard</strong> view header, select <strong>Nodes</strong>.</p>
+</li>
+<li>
+<p>From the list of nodes, select the node you want to investigate.</p>
+</li>
+<li>
+<p>Review vulnerabilities for the selected node and prioritize taking action.</p>
+</li>
+<li>
+<p>To get more information about the affected components in a node, select <strong>Components</strong> from <strong>Related entities</strong> on the right.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vulnerability-management-prioritizing_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-prioritizing_acs-operating-manage-vulnerabilities"></a>Prioritizing the vulnerabilities</h3>
+<div class="paragraph _abstract">
+<p>Answer the following questions to prioritize the vulnerabilities in your environment for action and investigation:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>How important is an affected asset for your organization?</p>
+</li>
+<li>
+<p>How severe does a vulnerability need to be for investigation?</p>
+</li>
+<li>
+<p>Can the vulnerability be fixed by a patch for the affected software component?</p>
+</li>
+<li>
+<p>Does the existence of the vulnerability violate any of your organization&#8217;s security policies?</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The answers to these questions help security and development teams decide if they want to gauge the exposure of a vulnerability.</p>
+</div>
+<div class="paragraph">
+<p>Red Hat Advanced Cluster Security for Kubernetes provides you the means to facilitate the prioritization of the vulnerabilities in your applications and components.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vulnerability-management-assess-exposure_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-assess-exposure_acs-operating-manage-vulnerabilities"></a>Assessing the exposure</h3>
+<div class="paragraph _abstract">
+<p>To assess your exposure to a vulnerability, answer the following questions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Is your application impacted by a vulnerability?</p>
+</li>
+<li>
+<p>Is the vulnerability mitigated by some other factor?</p>
+</li>
+<li>
+<p>Are there any known threats that could lead to the exploitation of this vulnerability?</p>
+</li>
+<li>
+<p>Are you using the software package which has the vulnerability?</p>
+</li>
+<li>
+<p>Is spending time on a specific vulnerability and the software package worth it?</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Take some of the following actions based on your assessment:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Consider marking the vulnerability as a false positive if you determine that there is no exposure or that the vulnerability does not apply in your environment.</p>
+</li>
+<li>
+<p>Consider if you would prefer to remediate, mitigate or accept the risk if you are exposed.</p>
+</li>
+<li>
+<p>Consider if you want to remove or change the software package to reduce your attack surface.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vulnerability-management-take-action_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-take-action_acs-operating-manage-vulnerabilities"></a>Taking action</h3>
+<div class="paragraph _abstract">
+<p>Once you have decided to take action on a vulnerability, you can take one of the following actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Remediate the vulnerability</p>
+</li>
+<li>
+<p>Mitigate and accept the risk</p>
+</li>
+<li>
+<p>Accept the risk</p>
+</li>
+<li>
+<p>Mark the vulnerability as a false positive</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can remediate vulnerabilities by performing one of the following actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Remove a software package</p>
+</li>
+<li>
+<p>Update a software package to a non-vulnerable version.</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p><a href="../operating/manage-vulnerabilities.html#vulnerability-management-review-deferred_acs-operating-manage-vulnerabilities">Reviewing a false positive or deferred CVE</a></p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="vulnerability-management-upgrade-componentacs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-upgrade-componentacs-operating-manage-vulnerabilities"></a>Finding a new component version</h4>
+<div class="paragraph _abstract">
+<p>The following procedure finds a new component version to upgrade to.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>On the RHACS portal, navigate to <strong>Vulnerability Management</strong> &#8594; <strong>Dashboard</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Dashboard</strong> view header, select <strong>Images</strong>.</p>
+</li>
+<li>
+<p>From the list of images, select the image you already assessed.</p>
+</li>
+<li>
+<p>Under the <strong>Image findings</strong> section, select the CVE.</p>
+</li>
+<li>
+<p>Select the Affected components of the CVE you want to take action on.</p>
+</li>
+<li>
+<p>Review the version of the component that the CVE is fixed in and update your image.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vulnerability-management-accept-risks_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-accept-risks_acs-operating-manage-vulnerabilities"></a>Accepting risks</h3>
+<div class="paragraph _abstract">
+<p>Follow the instructions in this section to accept the risks in Red Hat Advanced Cluster Security for Kubernetes.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have <code>write</code> permission for the <code>VulnerabilityManagementRequests</code> resource.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>To accept risk with or without mitigation:</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>On the RHACS portal, navigate to <strong>Vulnerability Management</strong> &#8594; <strong>Dashboard</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Dashboard</strong> view header, select <strong>Images</strong>.</p>
+</li>
+<li>
+<p>From the list of images, select the image you already assessed.</p>
+</li>
+<li>
+<p>Find the row which lists the CVE you would like to take action on.</p>
+</li>
+<li>
+<p>Click <span class="image"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAjCAIAAADqn+bCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA+0lEQVRIie2WMQqEMBBFJ47gUXRBLyBYqbUXULCx9CR2XsAb6AlUEM9kpckW7obdZhwWYWHXX/3i8TPJZEKEUgpOlXFu3JX4V4kmB2qaZhgGKSUiZlkWxzEBC84N9zxv27bdO47Tti0Bs3at4wBgXVca/lJnfN/XPggCGmadIwAsywIAiGhZFk1ydy2EYJKgGCqK4vZUVVU0zKpxnmftp2mi4S/1GhG1N82DMWNNYVmW4zgqpRAxTVMa5t4evlg11nXd9/1eY57nSZIQMKtG13WllLu3bbvrOgJmdUbHwfur8Xniqw6Hh5UYRdGDNowwDA+WvP4UV+JPJ94B1gKUWcTOCT0AAAAASUVORK5CYII=" alt="kebab" title="Options menu"></span> on the right for the CVE you identified and click <strong>Defer CVE</strong>.</p>
+</li>
+<li>
+<p>Select the date and time till you want to defer the CVE.</p>
+</li>
+<li>
+<p>Select if you want to defer the CVE for the selected image tag or all tags for this image.</p>
+</li>
+<li>
+<p>Enter the reason for the deferral.</p>
+</li>
+<li>
+<p>Click <strong>Request approval</strong>.
+Select the blue information icon on the right of the CVE and copy the approval link to share with your organization&#8217;s deferral approver.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="vulnerability-management-mark-false-positive_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-mark-false-positive_acs-operating-manage-vulnerabilities"></a>Marking vulnerabilities as false positive</h4>
+<div class="paragraph _abstract">
+<p>The following procedure marks a vulnerability as a false positive.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have the <code>write</code> permission for the <code>VulnerabilityManagementRequests</code> resource.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>On the RHACS portal, navigate to <strong>Vulnerability Management</strong> &#8594; <strong>Dashboard</strong>.</p>
+</li>
+<li>
+<p>On the <strong>Dashboard</strong> view header, select <strong>Images</strong>.</p>
+</li>
+<li>
+<p>From the list of images, select the image you already assessed.</p>
+</li>
+<li>
+<p>Find the row which lists the CVE you would like to take action on.</p>
+</li>
+<li>
+<p>Click the <span class="image"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAjCAIAAADqn+bCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA+0lEQVRIie2WMQqEMBBFJ47gUXRBLyBYqbUXULCx9CR2XsAb6AlUEM9kpckW7obdZhwWYWHXX/3i8TPJZEKEUgpOlXFu3JX4V4kmB2qaZhgGKSUiZlkWxzEBC84N9zxv27bdO47Tti0Bs3at4wBgXVca/lJnfN/XPggCGmadIwAsywIAiGhZFk1ydy2EYJKgGCqK4vZUVVU0zKpxnmftp2mi4S/1GhG1N82DMWNNYVmW4zgqpRAxTVMa5t4evlg11nXd9/1eY57nSZIQMKtG13WllLu3bbvrOgJmdUbHwfur8Xniqw6Hh5UYRdGDNowwDA+WvP4UV+JPJ94B1gKUWcTOCT0AAAAASUVORK5CYII=" alt="kebab" title="Options menu"></span> on the right for the CVE you identified and click <strong>Defer CVE</strong>.</p>
+</li>
+<li>
+<p>Select the date and time you want to defer the CVE.</p>
+</li>
+<li>
+<p>Select if you want to defer the CVE for the selected image tag or all tags for this image.</p>
+</li>
+<li>
+<p>Enter the reason for the deferral.</p>
+</li>
+<li>
+<p>Click <strong>Request approval</strong>.</p>
+</li>
+<li>
+<p>Select the blue information icon on the right of the CVE and copy the approval link to share with your organization&#8217;s deferral approver.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="vulnerability-management-review-deferred_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-review-deferred_acs-operating-manage-vulnerabilities"></a>Reviewing a false positive or deferred CVE</h4>
+<div class="paragraph _abstract">
+<p>Use the following procedure to review a false positive or deferred CVE.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>You must have the <code>write</code> permission for the <code>VulnerabilityManagementApprovals</code> resource.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can review a false positive or defered CVE:</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Open the approval link in your browser or in the RHACS portal.</p>
+</li>
+<li>
+<p>Navigate to <strong>Vulnerability Management</strong> &#8594; <strong>Risk Acceptance</strong> and search for the CVE.</p>
+</li>
+<li>
+<p>Review the vulnerabilities scope and action to decide if you would like to approve it.</p>
+</li>
+<li>
+<p>Click on the <span class="image"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAjCAIAAADqn+bCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA+0lEQVRIie2WMQqEMBBFJ47gUXRBLyBYqbUXULCx9CR2XsAb6AlUEM9kpckW7obdZhwWYWHXX/3i8TPJZEKEUgpOlXFu3JX4V4kmB2qaZhgGKSUiZlkWxzEBC84N9zxv27bdO47Tti0Bs3at4wBgXVca/lJnfN/XPggCGmadIwAsywIAiGhZFk1ydy2EYJKgGCqK4vZUVVU0zKpxnmftp2mi4S/1GhG1N82DMWNNYVmW4zgqpRAxTVMa5t4evlg11nXd9/1eY57nSZIQMKtG13WllLu3bbvrOgJmdUbHwfur8Xniqw6Hh5UYRdGDNowwDA+WvP4UV+JPJ94B1gKUWcTOCT0AAAAASUVORK5CYII=" alt="kebab" title="Options menu"></span> at the far right of the CVE and approve or deny the request for approval.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vulnerability-management-reporting_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-reporting_acs-operating-manage-vulnerabilities"></a>Reporting vulnerabilities to teams</h3>
+<div class="paragraph _abstract">
+<p>As organizations must constantly reassess and report on their vulnerabilities, some organizations find it helpful to have scheduled communications to key stakeholders to help in the vulnerability management process.</p>
+</div>
+<div class="paragraph">
+<p>You can use Red Hat Advanced Cluster Security for Kubernetes to schedule these reoccurring communications through e-mail. These communications should be scoped to the most relevant information that the key stakeholders need.</p>
+</div>
+<div class="paragraph">
+<p>For sending these communications, you must consider the following questions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>What schedule would have the most impact when communicating with the stakeholders?</p>
+</li>
+<li>
+<p>Who is the audience?</p>
+</li>
+<li>
+<p>Should you only send specific severity vulnerabilities in your report?</p>
+</li>
+<li>
+<p>Should you only send fixable vulnerabilities in your report?</p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="vulnerability-management-scheduled-report_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-scheduled-report_acs-operating-manage-vulnerabilities"></a>Scheduling vulnerability management reports</h4>
+<div class="paragraph _abstract">
+<p>The following procedure creates a scheduled vulnerability report.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>On the RHACS portal, navigate to <strong>Vulnerability Management</strong> &#8594; <strong>Reporting</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Create report</strong>.</p>
+</li>
+<li>
+<p>Enter a name for your report in the <strong>Report name</strong> field.</p>
+</li>
+<li>
+<p>Select a weekly or monthly cadence for your report under <strong>Repeat report&#8230;&#8203;</strong></p>
+</li>
+<li>
+<p>Enter <strong>Description</strong> for the report.</p>
+</li>
+<li>
+<p>Select the scope for the report by selecting if you want to report fixable vulnerabilities, vulnerabilities of a specific severity, or vulnerabilities that only appeared since the last scheduled report.</p>
+</li>
+<li>
+<p>For <strong>Configure resource scope</strong>, select the scope of resources the vulnerabilities apply to.</p>
+</li>
+<li>
+<p>Select or create an e-mail notifier to send your report by e-mail and configure your distribution list under <strong>Notification and distribution</strong>.</p>
+</li>
+<li>
+<p>Select <strong>Create</strong> to schedule the report.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="vulnerability-management-send-report_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-send-report_acs-operating-manage-vulnerabilities"></a>Sending a vulnerability report</h4>
+<div class="paragraph _abstract">
+<p>The following procedure sends a vulnerability report.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>On the RHACS portal, navigate to <strong>Vulnerability Management</strong> &#8594; <strong>Reporting</strong>.</p>
+</li>
+<li>
+<p>From the list of reports, select the report.</p>
+</li>
+<li>
+<p>Select the  <span class="image"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAjCAIAAADqn+bCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA+0lEQVRIie2WMQqEMBBFJ47gUXRBLyBYqbUXULCx9CR2XsAb6AlUEM9kpckW7obdZhwWYWHXX/3i8TPJZEKEUgpOlXFu3JX4V4kmB2qaZhgGKSUiZlkWxzEBC84N9zxv27bdO47Tti0Bs3at4wBgXVca/lJnfN/XPggCGmadIwAsywIAiGhZFk1ydy2EYJKgGCqK4vZUVVU0zKpxnmftp2mi4S/1GhG1N82DMWNNYVmW4zgqpRAxTVMa5t4evlg11nXd9/1eY57nSZIQMKtG13WllLu3bbvrOgJmdUbHwfur8Xniqw6Hh5UYRdGDNowwDA+WvP4UV+JPJ94B1gKUWcTOCT0AAAAASUVORK5CYII=" alt="kebab" title="Options menu"></span> on the right of the report and click <strong>Run report now</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="vulnerability-management-edit-report_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-edit-report_acs-operating-manage-vulnerabilities"></a>Editing a vulnerability report</h4>
+<div class="paragraph _abstract">
+<p>The following procedure edits a vulnerability report.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>On the RHACS portal, navigate to <strong>Vulnerability Management</strong> &#8594; <strong>Reporting</strong>.</p>
+</li>
+<li>
+<p>From the list of reports, select the report.</p>
+</li>
+<li>
+<p>Select the  <span class="image"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAjCAIAAADqn+bCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA+0lEQVRIie2WMQqEMBBFJ47gUXRBLyBYqbUXULCx9CR2XsAb6AlUEM9kpckW7obdZhwWYWHXX/3i8TPJZEKEUgpOlXFu3JX4V4kmB2qaZhgGKSUiZlkWxzEBC84N9zxv27bdO47Tti0Bs3at4wBgXVca/lJnfN/XPggCGmadIwAsywIAiGhZFk1ydy2EYJKgGCqK4vZUVVU0zKpxnmftp2mi4S/1GhG1N82DMWNNYVmW4zgqpRAxTVMa5t4evlg11nXd9/1eY57nSZIQMKtG13WllLu3bbvrOgJmdUbHwfur8Xniqw6Hh5UYRdGDNowwDA+WvP4UV+JPJ94B1gKUWcTOCT0AAAAASUVORK5CYII=" alt="kebab" title="Options menu"></span> on the right of the report and click <strong>Edit</strong>.</p>
+</li>
+<li>
+<p>Modify the report as required.</p>
+</li>
+<li>
+<p>Click <strong>Save</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="vulnerability-management-delete-report_acs-operating-manage-vulnerabilities"><a class="anchor" href="#vulnerability-management-delete-report_acs-operating-manage-vulnerabilities"></a>Deleting a vulnerability report</h4>
+<div class="paragraph _abstract">
+<p>The following procedure deletes a vulnerability report.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>On the RHACS portal, navigate to <strong>Vulnerability Management</strong> &#8594; <strong>Reporting</strong>.</p>
+</li>
+<li>
+<p>From the list of reports, select the report.</p>
+</li>
+<li>
+<p>Select the  <span class="image"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAjCAIAAADqn+bCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAA+0lEQVRIie2WMQqEMBBFJ47gUXRBLyBYqbUXULCx9CR2XsAb6AlUEM9kpckW7obdZhwWYWHXX/3i8TPJZEKEUgpOlXFu3JX4V4kmB2qaZhgGKSUiZlkWxzEBC84N9zxv27bdO47Tti0Bs3at4wBgXVca/lJnfN/XPggCGmadIwAsywIAiGhZFk1ydy2EYJKgGCqK4vZUVVU0zKpxnmftp2mi4S/1GhG1N82DMWNNYVmW4zgqpRAxTVMa5t4evlg11nXd9/1eY57nSZIQMKtG13WllLu3bbvrOgJmdUbHwfur8Xniqw6Hh5UYRdGDNowwDA+WvP4UV+JPJ94B1gKUWcTOCT0AAAAASUVORK5CYII=" alt="kebab" title="Options menu"></span> on the right of the report and click <strong>Delete report</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="common-tasks"><a class="anchor" href="#common-tasks"></a>Common tasks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section lists some common tasks you can perform from the <strong>Vulnerability Management</strong> &#8594; <strong>Dashboard</strong> view.</p>
+</div>
+<div class="sect2">
+<h3 id="find-critical-cves-impacting-your-infrastructure_acs-operating-manage-vulnerabilities"><a class="anchor" href="#find-critical-cves-impacting-your-infrastructure_acs-operating-manage-vulnerabilities"></a>Finding critical CVEs impacting your infrastructure</h3>
+<div class="paragraph _abstract">
+<p>Use the <strong>Vulnerability Management</strong> view for identifying CVEs that are impacting your platform the most.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Navigate to the RHACS portal and click <strong>Vulnerability Management</strong> from the navigation menu.</p>
+</li>
+<li>
+<p>Select CVEs on the <strong>Vulnerability Management</strong> view header.</p>
+</li>
+<li>
+<p>In the <strong>CVEs</strong> view, select the <strong>Env Impact</strong> column header to arrange the CVEs in descending order (highest first) based on the environment impact.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-the-most-vulnerable-image-components_acs-operating-manage-vulnerabilities"><a class="anchor" href="#find-the-most-vulnerable-image-components_acs-operating-manage-vulnerabilities"></a>Finding the most vulnerable image components</h3>
+<div class="paragraph _abstract">
+<p>Use the <strong>Vulnerability Management</strong> view for identifying highly vulnerable image components.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Navigate to the RHACS portal and click <strong>Vulnerability Management</strong> from the navigation menu.</p>
+</li>
+<li>
+<p>From the <strong>Vulnerability Management</strong> view header, select <strong>Application &amp; Infrastructure</strong> &#8594; <strong>Components</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Components</strong> view, select the <strong>CVEs</strong> column header to arrange the components in descending order (highest first) based on the CVEs count.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="identify-container-image-layer-that-introduces-vulnerabilities_acs-operating-manage-vulnerabilities"><a class="anchor" href="#identify-container-image-layer-that-introduces-vulnerabilities_acs-operating-manage-vulnerabilities"></a>Identifying the container image layer that introduces vulnerabilities</h3>
+<div class="paragraph _abstract">
+<p>Use the <strong>Vulnerability Management</strong> view to identify vulnerable components and the image layer they appear in.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Navigate to the RHACS portal and click <strong>Vulnerability Management</strong> from the navigation menu.</p>
+</li>
+<li>
+<p>Select an image from the <strong>Top Riskiest Images</strong> widget.</p>
+</li>
+<li>
+<p>In the <strong>Image</strong> details view, select the <strong>Dockerfile</strong> tab under the <strong>Image Findings</strong> section.</p>
+</li>
+<li>
+<p>In the <strong>Dockerfile</strong> tab under the <strong>Image Findings</strong> section, select the expand icon to see a summary of image components.</p>
+</li>
+<li>
+<p>Select the expand icon for specific components to get more details about the CVEs affecting the selected component.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="view-details-only-for-fixable-cves_acs-operating-manage-vulnerabilities"><a class="anchor" href="#view-details-only-for-fixable-cves_acs-operating-manage-vulnerabilities"></a>Viewing details only for fixable CVEs</h3>
+<div class="paragraph _abstract">
+<p>Use the <strong>Vulnerability Management</strong> view to filter and show only the fixable CVEs.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Navigate to the RHACS portal and click <strong>Vulnerability Management</strong> from the navigation menu.</p>
+</li>
+<li>
+<p>From the <strong>Vulnerability Management</strong> view header, select <strong>Filter CVEs</strong> &#8594; <strong>Fixable</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="identify-operating-system-of-the-base-image_acs-operating-manage-vulnerabilities"><a class="anchor" href="#identify-operating-system-of-the-base-image_acs-operating-manage-vulnerabilities"></a>Identifying the operating system of the base image</h3>
+<div class="paragraph _abstract">
+<p>Use the <strong>Vulnerability Management</strong> view to identify the operating system of the base image.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Navigate to the RHACS portal and click <strong>Vulnerability Management</strong> from the navigation menu.</p>
+</li>
+<li>
+<p>From the <strong>Vulnerability Management</strong> view header, select <strong>Images</strong>.</p>
+</li>
+<li>
+<p>View the base operating system (OS) and OS version for all images under the <strong>Image OS</strong> column.</p>
+</li>
+<li>
+<p>Select an image to view its details.
+The base operating system is also available under the <strong>Image Summary</strong> &#8594; <strong>Details and Metadata</strong> section.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Red Hat Advanced Cluster Security for Kubernetes lists the <strong>Image OS</strong> as <strong>unknown</strong> when either:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The operating system information is not available, or</p>
+</li>
+<li>
+<p>If the image scanner in use does not provide this information.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Docker Trusted Registry, Google Container Registry, and Anchore do not provide this information.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="top-risky-objects_acs-operating-manage-vulnerabilities"><a class="anchor" href="#top-risky-objects_acs-operating-manage-vulnerabilities"></a>Identifying top risky objects</h3>
+<div class="paragraph">
+<p>Use the <strong>Vulnerability Management</strong> view for identifying the top risky objects in your environment.
+The <strong>Top Risky</strong> widget displays information about the top risky images, deployments, clusters, and namespaces in your environment.
+The risk is determined based on the number of vulnerabilities and their CVSS scores.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Navigate to the RHACS portal and click <strong>Vulnerability Management</strong> from the navigation menu.</p>
+</li>
+<li>
+<p>Select the <strong>Top Risky</strong> widget header to choose between riskiest images, deployments, clusters, and namespaces.</p>
+<div class="paragraph">
+<p>The small circles on the chart represent the chosen object (image, deployment, cluster, namespace).
+Hover over the circles to see an overview of the object they represent.
+And select a circle to view detailed information about the selected object, its related entities, and the connections between them.</p>
+</div>
+<div class="paragraph">
+<p>For example, if you are viewing <strong>Top Risky Deployments by CVE Count and CVSS score</strong>, each circle on the chart represents a deployment.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When you hover over a deployment, you see an overview of the deployment, which includes deployment name, name of the cluster and namespace, severity, risk priority, CVSS, and CVE count (including fixable).</p>
+</li>
+<li>
+<p>When you select a deployment, the <strong>Deployment</strong> view opens for the selected deployment.
+The <strong>Deployment</strong> view shows in-depth details of the deployment and includes information about policy violations, common vulnerabilities, CVEs, and riskiest images for that deployment.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Select <strong>View All</strong> on the widget header to view all objects of the chosen type.
+For example, if you chose <strong>Top Risky Deployments by CVE Count and CVSS score</strong>, you can select <strong>View All</strong> to view detailed information about all deployments in your infrastructure.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="top-risky-images-components_acs-operating-manage-vulnerabilities"><a class="anchor" href="#top-risky-images-components_acs-operating-manage-vulnerabilities"></a>Identifying top riskiest images and components</h3>
+<div class="paragraph">
+<p>Similar to the <strong>Top Risky</strong>, the <strong>Top Riskiest</strong> widget lists the names of the top riskiest images and components.
+This widget also includes the total number of CVEs and the number of fixable CVEs in the listed images.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Navigate to the RHACS portal and click <strong>Vulnerability Management</strong> from the navigation menu.</p>
+</li>
+<li>
+<p>Select the <strong>Top Riskiest Images</strong> widget header to choose between the riskiest images and components.
+If you are viewing <strong>Top Riskiest Images</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>When you hover over an image in the list, you see an overview of the image, which includes image name, scan time, and the number of CVEs along with severity (critical, high, medium, and low).</p>
+</li>
+<li>
+<p>When you select an image, the <strong>Image</strong> view opens for the selected image.
+The <strong>Image</strong> view shows in-depth details of the image and includes information about CVEs by CVSS score, top riskiest components, fixable CVEs, and Dockerfile for the image.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Select <strong>View All</strong> on the widget header to view all objects of the chosen type.
+For example, if you chose <strong>Top Riskiest Components</strong>, you can select <strong>View All</strong> to view detailed information about all components in your infrastructure.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="viewing-dockerfile-for-image_acs-operating-manage-vulnerabilities"><a class="anchor" href="#viewing-dockerfile-for-image_acs-operating-manage-vulnerabilities"></a>Viewing the Dockerfile for an image</h3>
+<div class="paragraph">
+<p>Use the <strong>Vulnerability Management</strong> view to find the root cause of vulnerabilities in an image.
+You can view the Dockerfile and find exactly which command in the Dockerfile introduced the vulnerabilities and all components that are associated with that single command.</p>
+</div>
+<div class="paragraph">
+<p>The Dockerfile tab shows information about:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All the layers in the Dockerfile</p>
+</li>
+<li>
+<p>The instructions and their value for each layer</p>
+</li>
+<li>
+<p>The components included in each layer</p>
+</li>
+<li>
+<p>The number of CVEs in components for each layer</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When there are components introduced by a specific layer, you can select the expand icon to see a summary of its components.
+If there are any CVEs in those components, you can select the expand icon for an individual component to get more details about the CVEs affecting that component.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Navigate to the RHACS portal and click <strong>Vulnerability Management</strong> from the navigation menu.</p>
+</li>
+<li>
+<p>Select an image from the <strong>Top Riskiest Images</strong> widget.</p>
+</li>
+<li>
+<p>In the <strong>Image</strong> details view, select the <strong>Dockerfile</strong> tab under the <strong>Image Findings</strong> section.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="disable-identify-vulnerabilities-in-nodes_acs-operating-manage-vulnerabilities"><a class="anchor" href="#disable-identify-vulnerabilities-in-nodes_acs-operating-manage-vulnerabilities"></a>Disabling identifying vulnerabilities in nodes</h3>
+<div class="paragraph">
+<p>Identifying vulnerabilities in nodes is enabled by default. You can disable it from the RHACS portal.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>On the RHACS portal, navigate to <strong>Platform Configuration</strong> &#8594; <strong>Integrations</strong>.</p>
+</li>
+<li>
+<p>Under <strong>Image Integrations</strong>, select <strong>StackRox Scanner</strong>.</p>
+</li>
+<li>
+<p>From the list of scanners, select <strong>StackRox Scanner</strong> to view its details.</p>
+</li>
+<li>
+<p>Remove the <strong>Node Scanner</strong> option from <strong>Types</strong>.</p>
+</li>
+<li>
+<p>Select <strong>Save</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scan-inactive-images_acs-operating-manage-vulnerabilities"><a class="anchor" href="#scan-inactive-images_acs-operating-manage-vulnerabilities"></a>Scanning inactive images</h3>
+<div class="paragraph">
+<p>Red Hat Advanced Cluster Security for Kubernetes scans all active (deployed) images every 4 hours and updates the image scan results to reflect the latest vulnerability definitions.</p>
+</div>
+<div class="paragraph">
+<p>You can also configure Red Hat Advanced Cluster Security for Kubernetes to scan inactive (not deployed) images automatically.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Select <strong>Images</strong> on the <strong>Vulnerability Management</strong> view header to view a list of all the images.</p>
+</li>
+<li>
+<p>On the <strong>Images</strong> view header, select <strong>Watch Images</strong>.</p>
+</li>
+<li>
+<p>In the <strong>Manage Inactive Images</strong> dialog, enter the inactive image&#8217;s name (and not the image <code>id</code>) for which you want to enable scanning.</p>
+</li>
+<li>
+<p>Select <strong>Add Image</strong>.
+Red Hat Advanced Cluster Security for Kubernetes then scans the image and shows the error or success message.</p>
+</li>
+<li>
+<p>Select <strong>Return to Image list</strong> to view the <strong>Images</strong> view.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="create-policies-to-block-specific-cves_acs-operating-manage-vulnerabilities"><a class="anchor" href="#create-policies-to-block-specific-cves_acs-operating-manage-vulnerabilities"></a>Creating policies to block specific CVEs</h3>
+<div class="paragraph">
+<p>You can create new policies or add specific CVEs to an existing policy from the <strong>Vulnerability Management</strong> view.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Click <strong>CVEs</strong> from the <strong>Vulnerability Management</strong> view header.</p>
+</li>
+<li>
+<p>Select the checkboxes (leftmost column) for one or more CVEs and then click <strong>Add selected CVEs to Policy</strong> (<strong><code>add</code></strong> icon).
+Or, move the mouse over a CVE in the list, and select the <strong>Add</strong> icon on the right side.</p>
+</li>
+<li>
+<p>For <strong>Policy Name</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>To add the CVE to an existing policy, select an existing policy from the drop-down list box.</p>
+</li>
+<li>
+<p>To create a new policy, enter the name for the new policy, and select <strong>Create  &lt;policy_name&gt;</strong>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Select a value for <strong>Severity</strong>, either <strong>Critical</strong>, <strong>High</strong>, <strong>Medium</strong>, or <strong>Low</strong>.</p>
+</li>
+<li>
+<p>Choose the <strong>Lifecycle Stage</strong> to which your policy is applicable, from <strong>Build</strong>, or <strong>Deploy</strong>.
+You can also select both life-cycle stages.</p>
+</li>
+<li>
+<p>Enter details about the policy in the <strong>Description</strong> box.</p>
+</li>
+<li>
+<p>Turn off the <strong>Enable Policy</strong> toggle if you want to create the policy but enable it later.
+The <strong>Enable Policy</strong> toggle is on by default.</p>
+</li>
+<li>
+<p>Verify the listed CVEs which are included in this policy.</p>
+</li>
+<li>
+<p>Click <strong>Save Policy</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="view-recently-detected-vulnerabilities_acs-operating-manage-vulnerabilities"><a class="anchor" href="#view-recently-detected-vulnerabilities_acs-operating-manage-vulnerabilities"></a>Viewing recently detected vulnerabilities</h3>
+<div class="paragraph">
+<p>The <strong>Recently Detected Vulnerabilities</strong> widget on the <strong>Vulnerability Management</strong> view shows a list of recently discovered vulnerabilities in your scanned images, based on the scan time and CVSS score.
+It also includes information about the number of images affected by the CVE and its impact (percentage) on your environment.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When you hover over a CVE in the list, you see an overview of the CVE, which includes scan time, CVSS score, description, impact, and whether it&#8217;s scored by using CVSS v2 or v3.</p>
+</li>
+<li>
+<p>When you select a CVE, the <strong>CVE</strong> details view opens for the selected CVE.
+The <strong>CVE</strong> details view shows in-depth details of the CVE and the components, images, and deployments and deployments in which it appears.</p>
+</li>
+<li>
+<p>Select <strong>View All</strong> on the <strong>Recently Detected Vulnerabilities</strong> widget header to view a list of all the CVEs in your infrastructure.
+You can also filter the list of CVEs.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="view-most-common-vulnerabilities_acs-operating-manage-vulnerabilities"><a class="anchor" href="#view-most-common-vulnerabilities_acs-operating-manage-vulnerabilities"></a>Viewing the most common vulnerabilities</h3>
+<div class="paragraph">
+<p>The <strong>Most Common Vulnerabilities</strong> widget on the <strong>Vulnerability Management</strong> view shows a list of vulnerabilities that affect the largest number of deployments and images arranged by their CVSS score.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When you hover over a CVE in the list, you see an overview of the CVE which includes, scan time, CVSS score, description, impact, and whether it is scored by using CVSS v2 or v3.</p>
+</li>
+<li>
+<p>When you select a CVE, the <strong>CVE</strong> details view opens for the selected CVE.
+The <strong>CVE</strong> details view shows in-depth details of the CVE and the components, images, and deployments and deployments in which it appears.</p>
+</li>
+<li>
+<p>Select <strong>View All</strong> on the <strong>Most Common Vulnerabilities</strong> widget header to view a list of all the CVEs in your infrastructure.
+You can also filter the list of CVEs.
+To export the CVEs as a CSV file, select <strong>Export</strong> &#8594; <strong>Download CVES as CSV</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="identify-deployments-with-most-severe-policy-violations_acs-operating-manage-vulnerabilities"><a class="anchor" href="#identify-deployments-with-most-severe-policy-violations_acs-operating-manage-vulnerabilities"></a>Identifying deployments with most severe policy violations</h3>
+<div class="paragraph">
+<p>The <strong>Deployments with most severe policy violations</strong> widget on the <strong>Vulnerability Management</strong> view shows a list of deployments and severity of vulnerabilities affecting that deployment.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When you hover over a deployment in the list, you see an overview of the deployment, which includes the deployment name, the name of the cluster and the namespace in which the deployment exists, and the number of failing policies and their severity.</p>
+</li>
+<li>
+<p>When you select a deployment, the <strong>Deployment</strong> view opens for the selected deployment.
+The <strong>Deployment</strong> view shows in-depth details of the deployment and includes information about policy violations, common vulnerabilities, CVEs, and riskiest images for that deployment.</p>
+</li>
+<li>
+<p>Select <strong>View All</strong> on the <strong>Most Common Vulnerabilities</strong> widget header to view a list of all the CVEs in your infrastructure.
+You can also filter the list of CVEs.
+To export the CVEs as a CSV file, select <strong>Export</strong> &#8594; <strong>Download CVES as CSV</strong>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-clusters-with-most-kubernetes-and-istio-vulnerabilities_acs-operating-manage-vulnerabilities"><a class="anchor" href="#find-clusters-with-most-kubernetes-and-istio-vulnerabilities_acs-operating-manage-vulnerabilities"></a>Finding clusters with most Kubernetes and Istio vulnerabilities</h3>
+<div class="paragraph _abstract">
+<p>Use the <strong>Vulnerability Management</strong> view for identifying the clusters with most Kubernetes and Istio vulnerabilities in your environment.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>Clusters with most K8S &amp; Istio Vulnerabilities</strong>  widget shows a list of clusters, ranked by the number of Kubernetes and Istio vulnerabilities in each cluster.
+The cluster on top of the list is the cluster with the highest number of vulnerabilities.</p>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Click on one of the clusters from the list to view details about the cluster.
+The <strong>Cluster</strong> view includes:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Cluster Details</strong> section, which shows cluster details and metadata, top risky objects (deployments, namespaces, and images), recently detected vulnerabilities, riskiest images, and deployments with the most severe policy violations.</p>
+</li>
+<li>
+<p><strong>Cluster Findings</strong> section, which includes a list of failing policies and list of fixable CVEs.</p>
+</li>
+<li>
+<p><strong>Related Entities</strong> section, which shows the number of namespaces, deployments, policies, images, components, and CVEs the cluster contains.
+You can select these entities to view more details.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Click <strong>View All</strong> on the widget header to view the list of all clusters.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="identify-vulnerabilities-in-nodes_acs-operating-manage-vulnerabilities"><a class="anchor" href="#identify-vulnerabilities-in-nodes_acs-operating-manage-vulnerabilities"></a>Identifying vulnerabilities in nodes</h3>
+<div class="paragraph">
+<p>You can use the <strong>Vulnerability Management</strong> view to identify vulnerabilities in your nodes.
+The identified vulnerabilities include vulnerabilities in:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Core Kubernetes components.</p>
+</li>
+<li>
+<p>Container runtimes (Docker, CRI-O, runC, and containerd).</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Red Hat Advanced Cluster Security for Kubernetes does not support identifying vulnerabilities in nodes on OpenShift Container Platform.</p>
+</li>
+<li>
+<p>Red Hat Advanced Cluster Security for Kubernetes can identify vulnerabilities in the following operating systems:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Amazon Linux 2</p>
+</li>
+<li>
+<p>CentOS</p>
+</li>
+<li>
+<p>Red Hat Enterprise Linux CoreOS (RHCOS)</p>
+</li>
+<li>
+<p>Debian</p>
+</li>
+<li>
+<p>Garden Linux (Debian 11)</p>
+</li>
+<li>
+<p>Red Hat Enterprise Linux (RHEL)</p>
+</li>
+<li>
+<p>Ubuntu (AWS, Azure, GCP, and GKE specific versions)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Select <strong>Nodes</strong> on the <strong>Vulnerability Management</strong> view header to view a list of all the CVEs affecting your nodes.</p>
+</li>
+<li>
+<p>Select a node from the list to view details of all CVEs affecting that node.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>When you select a node, the <strong>Node</strong> details panel opens for the selected node.
+The <strong>Node</strong> view shows in-depth details of the node and includes information about CVEs by CVSS score and fixable CVEs for that node.</p>
+</li>
+<li>
+<p>Select <strong>View All</strong> on the <strong>CVEs by CVSS score</strong> widget header to view a list of all the CVEs in the selected node.
+You can also filter the list of CVEs.</p>
+</li>
+<li>
+<p>To export the fixable CVEs as a CSV file, select <strong>Export as CSV</strong> under the <strong>Node Findings</strong> section.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-acs';
+  var version = 'Branch Build';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+      distros['openshift-dedicated'] = ['docs_dedicated_v3']
+    }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.com/hubfs/images/logos/Logo-RedHat-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+                <p class="text-nowrap">Copyright © 2021 Red Hat, Inc.</span></p>
+            </div>
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.innerWidth >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1008) {
+        sidebar.style.display = 'block';
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if (window.innerWidth < 1008) {
+        sidebar.style.display = 'none';
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+      const ioConfiguration = {
+        "rootMargin": "-120px 0px -400px 0px",
+        "threshold": 0
+      };
+
+      const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+        entries.forEach(entry => {
+          var id = entry.target.getAttribute('id');
+          //fight with js
+          document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+        });
+      });
+
+      //track all h1-4 headings that have an id
+      document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+        observer.observe(h);
+      });
+
+      //runs when the IntersectionObserver fires
+      function setCurrent(e) {
+        var allTocLinks = document.querySelectorAll("#toc li a");
+        e.map(i => {
+          if (i.isIntersecting && i.intersectionRatio >= 1) {
+            allTocLinks.forEach(link => link.classList.remove("toc-active"));
+            document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active');
+          }
+        });
+      };
+
+      //make clicked toc item active and stop IntersectionObserver
+      $("#toc a").click(function() {
+        //stop tracking all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.unobserve(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.scrollY==0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          }
+        };
+        tocItems[0].classList.add("toc-active");
+      })
+  </script>
+
+  <!--adjust sidebar and toc when footer is displayed -->
+  <script type="text/javascript">
+    sidebar = document.querySelector('.sidebar')
+    toc = document.querySelector('#toc')
+    main = document.querySelector('.main')
+    okd_footer = document.querySelector('.footer-origin-docs')
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if (window.innerWidth >= 1008) {
+        if(sidebar !== null && toc !== null) {
+          if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+              sidebar.style.marginBottom = "38px";
+              toc.style.bottom = "35px";
+              main.style.marginBottom = "35px";
+              //okd footer
+              if(okd_footer !== null) {
+                sidebar.style.marginBottom = "176px";
+                toc.style.bottom = "175px";
+                main.style.marginBottom = "135px";
+              };
+            };
+          if(document.documentElement.scrollHeight != window.pageYOffset + window.innerHeight) {
+            sidebar.style.marginBottom = "0px";
+            toc.style.bottom = "0px";
+          }
+        }
+      }
+    })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if (window.innerWidth < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,2728 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html class="ie8"> <![endif]-->
+<!--[if IE 9]> <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<html>
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  <title>Searching and filtering | Operating | Red Hat Advanced Cluster Security for Kubernetes Branch Build</title>
+  <link href="https://assets.openshift.net/content/subdomain.css" rel="stylesheet" type="text/css">
+  <link href="https://docs.openshift.com/container-platform/4.1/_stylesheets/search.css" rel="stylesheet" />
+  <link href="https://docs.openshift.com/container-platform/4.1/_stylesheets/autumn.css" rel="stylesheet" />
+  <link href="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" rel="apple-touch-icon-precomposed" type="image/png">
+  <link href="https://assets.openshift.net/content/subdomain/favicon32x32.png" rel="shortcut icon" type="text/css">
+  <link href="https://assets.openshift.net/content/osh-nav-footer.css" rel="stylesheet" type="text/css" media="screen, print" />
+  <link href="https://docs.openshift.com/container-platform/4.1/_stylesheets/docs.css" rel="stylesheet" />
+  <!--[if IE]><link rel="shortcut icon" href="https://assets.openshift.net/content/subdomain/favicon.ico"><![endif]-->
+  <!-- or, set /favicon.ico for IE10 win -->
+  <meta content="OpenShift" name="application-name">
+  <meta content="#000000" name="msapplication-TileColor">
+  <meta content="https://assets.openshift.net/content/subdomain/touch-icon-precomposed.png" name="msapplication-TileImage">
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PMDVKG');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Adobe DTM -->
+<script src="//www.redhat.com/dtm.js" type="text/javascript"></script>
+<!-- End Adobe DTM -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+        rel="stylesheet">
+  <script>
+
+    function getPDF() {
+      var element = document.getElementsByClassName('main');
+      
+      var opt = {
+        margin:       10,
+        filename:     'operating/search-filter.pdf',
+        html2canvas:  { windowWidth: 650 },
+        image:        { type: 'jpeg', quality: 0.98 }
+      };
+      html2pdf().set(opt).from(element[0]).save();
+    }
+  </script>
+
+</head>
+
+<body onload="selectVersion('Branch Build');">
+  <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-PMDVKG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<nav id="main">
+  <div class="container">
+    <div class="row">
+      <div class="navbar navbar-default navbar-openshift" role="navigation">
+        <div class="navbar-header">
+            <a href="#nav-main" class="dropdown-toggle navbar-menu-toggle hidden visible-xs" data-toggle="collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </a>
+          <a class="navbar-brand" href="/"></a>
+        </div>
+        <div id="nav-main" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li id="products" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                Products <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-column flex-md-row">
+                  <div class="col-xs-12 col-sm-3">
+                    <h3>Overview</h3>
+                    <ul class="nav flex-column">
+                      <li><a target="_blank" href="https://www.openshift.com/products/features/">Features</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/products/pricing/">Pricing</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-9">
+                    <h3>Featured Products</h3>
+                    <ul class="nav">
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/container-platform/">Red Hat OpenShift Container&nbsp;Platform</a>
+                        <p class="d-none d-md-block">Build, deploy and manage your applications across cloud- and on-premise infrastructure</p>
+                      </li>
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/dedicated/">Red Hat OpenShift Dedicated</a>
+                        <p class="d-none d-md-block">Single-tenant, high-availability Kubernetes clusters in the public cloud</p>
+                      </li>
+
+                      <li>
+                        <a target="_blank" href="https://www.openshift.com/products/online/">Red Hat OpenShift Online</a>
+                        <p class="d-none d-md-block">The fastest way for developers to build, host and scale applications in the public cloud</p>
+                      </li>
+
+                      <li class="nav-item">
+                        <a target="_blank" href="https://www.openshift.com/products/">All products <span class="fa fa-angle-right"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li id="learn" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Learn <span class="fa fa-angle-down"></span>
+              </a>
+              <div class="dropdown-menu">
+                <div class="row flex-md-nowrap">
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Learn</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/what-is-openshift/">What is OpenShift</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/get-started/">Get started</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/partners/">Partners</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/success-stories/">Customer success stories</a></li>
+                      <li><a target="_blank" href="https://blog.openshift.com">Blog</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/resources/">Resources</a></li>
+                    </ul>
+                  </div>
+                  <div class="col-xs-12 col-sm-6">
+                    <h3>Technology Topics</h3>
+                    <ul class="nav">
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/knative/">Knative</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/security/">Security</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/kubernetes/">Kubernetes</a></li>
+                      <li><a target="_blank" href="https://www.openshift.com/learn/topics/service-brokers/">Service Brokers</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Community <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://commons.openshift.org">OpenShift Commons</a></li>
+                <li><a target="_blank" href="https://www.okd.io">Open Source (OKD)</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/startups/">Startups</a></li>
+                <li><a target="_blank" href="https://www.openshift.com/community/programs/grants/">Grants</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                Support <span class="fa fa-angle-down"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a target="_blank" href="https://help.openshift.com">Help Center</a></li>
+                <li><a href="https://docs.openshift.com">OpenShift Docs</a></li>
+              </ul>
+            </li>
+
+            <li><a target="_blank" class="nav-sign-up" href="https://www.openshift.com/trial/">Free Trial</a></li>
+
+            <li><a target="_blank" href="https://manage.openshift.com" class="nav-sign-in">Log In <span class="fa fa-angle-right"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+  <div class="container">
+    <button id="hc-open-btn" class="open-btn-sm" onclick="openNav()" aria-label="Open"><span class="fa fa-bars" /></button>
+    <ol class="breadcrumb">
+      
+
+      
+
+      <li class="sitename">
+        <a href="/">
+          Documentation</a>
+      </li>
+      <li class="hidden-xs active">
+        
+        <a href="../welcome/index.html">Red Hat Advanced Cluster Security for Kubernetes Branch Build</a>
+        
+      </li>
+      <li class="hidden-xs active">
+        <a href="../operating/view-dashboard.html">Operating</a>
+      </li>
+      
+      <li class="hidden-xs active">
+        Searching and filtering
+      </li>
+      
+      <span text-align="right" style="float: right !important">
+        <a href="https://github.com/openshift/openshift-docs/commits/rhacs-docs-Branch Build/operating/search-filter.adoc"><span class="material-icons-outlined" title="Page history">history</span></a>
+        
+        <a href="https://github.com/openshift/openshift-docs/issues/new?title=[RHACS] Issue in file operating/search-filter.adoc">
+          <span class="material-icons-outlined" title="Open an issue">bug_report</span>
+        </a>
+        <a href="javascript: void(0);" onclick="getPDF();"><span class="material-icons-outlined" title="Download PDF (may take a while for large pages)">picture_as_pdf</span></a>
+        
+        
+      </span>
+      
+    </ol>
+    <div class="row row-offcanvas row-offcanvas-left">
+      <div class="col-xs-8 col-sm-3 col-md-3 sidebar sidebar-offcanvas">
+        <div class="row-fluid">
+          <div id="btn-close">
+            <button id="hc-close-btn" onclick="closeNav()" class="close-btn-sm" aria-label="close"><span class="fa fa-times" /></button>
+          </div>
+          <div id="hc-search">
+            <input id="hc-search-input" type="text" aria-label="search">
+            <button id="hc-search-btn" aria-label="search"><span class="fa fa-search" /></button>
+          </div>
+        </div>
+        <ul class="nav nav-sidebar">
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup0">
+        <span id="tgSpan0" class="fa fa-angle-right"></span>
+          About
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup0" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../welcome/index.html">Welcome</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup1">
+        <span id="tgSpan1" class="fa fa-angle-right"></span>
+          Release notes
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup1" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/369-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.69</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/368-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.68</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/367-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.67</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/366-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.66</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/365-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.65</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/364-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.64</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/363-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.63</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/3062-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.0.62</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/3061-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.0.61</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../release_notes/3060-release-notes.html">Red Hat Advanced Cluster Security for Kubernetes 3.0.60</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup2">
+        <span id="tgSpan2" class="fa fa-angle-right"></span>
+          Architecture
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup2" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../architecture/acs-architecture.html">Product architecture</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup3">
+        <span id="tgSpan3" class="fa fa-angle-right"></span>
+          Installing
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup3" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../installing/prerequisites.html">Installation prerequisites</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../installing/acs-installation-platforms.html">Installation platforms and methods</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../installing/install-ocp-operator.html">Installing by using an Operator</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+            <!-- this topic contains subtopics - Welcome 2 -->
+
+
+            <!-- start a new heading area -->
+
+            <li class="nav-header">
+              <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-3-3">
+                <span id="sgSpan-3-3" class="fa fa-caret-right"></span>
+                  &nbsp;Installing using Helm charts
+
+                  <!-- prints out the names of the second level books with arrow down or to right
+                  So in this case: Welcome 2 -->
+
+              </a>
+              <ul id="topicSubGroup-3-3" class="nav-tertiary list-unstyled collapse">
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../installing/installing_helm/install-helm-quick.html">
+                      Installing quickly
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../installing/installing_helm/install-helm-customization.html">
+                      Installing with customizations
+                    </a>
+                  </li>
+
+                
+
+              </ul>
+            </li>
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../installing/install-quick-roxctl.html">Installing using the roxctl CLI</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../installing/uninstall-acs.html">Uninstalling Red Hat Advanced Cluster Security for Kubernetes</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup4">
+        <span id="tgSpan4" class="fa fa-angle-right"></span>
+          Configuring
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup4" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/add-custom-certificates.html">Adding custom certificates</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/add-trusted-ca.html">Adding trusted certificate authorities</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/reissue-internal-certificates.html">Reissuing internal certificates</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/add-security-notices.html">Adding security notices</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/enable-offline-mode.html">Enabling offline mode</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/enable-alert-data-retention.html">Enabling alert data retention</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/expose-portal-over-http.html">Exposing the RHACS portal over HTTP</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/configure-automatic-upgrades.html">Configuring automatic upgrades for secured clusters</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/configure-proxy.html">Configuring a proxy for external network access</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/generate-diagnostic-bundle.html">Generating a diagnostic bundle</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/configure-endpoints.html">Configuring endpoints</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/monitor-acs.html">Monitoring with Prometheus</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../configuration/configure-audit-logging.html">Enabling audit logging</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup5">
+        <span id="tgSpan5" class="fa fa-angle-down"></span>
+          Operating
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup5" class="collapse in list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/view-dashboard.html">Viewing the dashboard</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/manage-compliance.html">Managing compliance</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/evaluate-security-risks.html">Evaluating security risks</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/use-admission-controller-enforcement.html">Using admission controller enforcement</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/manage-security-policies.html">Managing security policies</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/manage-network-policies.html">Managing network policies</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/review-cluster-configuration.html">Reviewing cluster configuration</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/examine-images-for-vulnerabilities.html">Examining images for vulnerabilities</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/manage-vulnerabilities.html">Managing vulnerabilities</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/respond-to-violations.html">Responding to violations</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class=" active" href="../operating/search-filter.html">Searching and filtering</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+            <!-- this topic contains subtopics - Welcome 2 -->
+
+
+            <!-- start a new heading area -->
+
+            <li class="nav-header">
+              <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicSubGroup-5-11">
+                <span id="sgSpan-5-11" class="fa fa-caret-right"></span>
+                  &nbsp;Managing user access
+
+                  <!-- prints out the names of the second level books with arrow down or to right
+                  So in this case: Welcome 2 -->
+
+              </a>
+              <ul id="topicSubGroup-5-11" class="nav-tertiary list-unstyled collapse">
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../operating/manage-user-access/configure-okta-identity-cloud.html">
+                      Configuring Okta Identity Cloud as a SAML 2.0 identity provider
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../operating/manage-user-access/configure-google-workspace-identity.html">
+                      Configuring Google Workspace as an OIDC identity provider
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../operating/manage-user-access/configure-ocp-oauth.html">
+                      Configuring OpenShift Container Platform OAuth server as an identity provider
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../operating/manage-user-access/manage-role-based-access-control-3630.html">
+                      Managing RBAC in Red Hat Advanced Cluster Security for Kubernetes 3.63 and newer
+                    </a>
+                  </li>
+
+                
+
+
+                <!-- for each topic in this topic_group, in Welcome 2, what topics exist?
+                     Welcome 2 Index Page, Welcome 3 and Welcome 2 More - we list them all.. -->
+
+                
+                
+                
+                
+                
+
+                <!-- is this is a single page? That is, does this topic have more topics?
+                 Welcome 2 Index Page and Welcome 2 More -->
+
+
+
+
+                  <li>
+                    <a class="" href="../operating/manage-user-access/enable-pki-authentication.html">
+                      Enabling PKI authentication
+                    </a>
+                  </li>
+
+                
+
+              </ul>
+            </li>
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../operating/use-system-health-dashboard.html">Using the system health dashboard</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup6">
+        <span id="tgSpan6" class="fa fa-angle-right"></span>
+          Integrating
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup6" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-image-registries.html">Integrating with image registries</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-ci-systems.html">Integrating with CI systems</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-pagerduty.html">Integrating with PagerDuty</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-slack.html">Integrating with Slack</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-using-generic-webhooks.html">Integrating by using generic webhooks</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-sumologic.html">Integrating with Sumo Logic</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-google-cloud-storage.html">Integrating with Google Cloud Storage</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-using-syslog-protocol.html">Integrating by using the syslog protocol</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-amazon-s3.html">Integrating with Amazon S3</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-google-cloud-scc.html">Integrating with Google Cloud Security Command Center</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-splunk.html">Integrating with Splunk</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-image-vulnerability-scanners.html">Integrating with image vulnerability scanners</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-jira.html">Integrating with Jira</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../integration/integrate-with-email.html">Integrating with Email</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup7">
+        <span id="tgSpan7" class="fa fa-angle-right"></span>
+          Backup and restore
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup7" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../backup_and_restore/backing-up-acs.html">Backing up Red Hat Advanced Cluster Security for Kubernetes</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../backup_and_restore/restore-acs.html">Restoring from a backup</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup8">
+        <span id="tgSpan8" class="fa fa-angle-right"></span>
+          Upgrading
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup8" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../upgrading/upgrade-helm.html">Upgrading using Helm charts</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../upgrading/upgrade-roxctl.html">Upgrading using the roxctl CLI</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup9">
+        <span id="tgSpan9" class="fa fa-angle-right"></span>
+          roxctl CLI
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup9" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../cli/getting-started-cli.html">Getting started with the roxctl CLI</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+
+<!--  the top level  groupings start here -->
+
+
+
+
+
+<!-- group_id is the one that is user selected. topic_group[id] is what we are parsing via navigation -->
+
+    <li class="nav-header">
+
+
+
+
+
+
+      <a class="" href="javascript:void(0);" data-toggle="collapse" data-target="#topicGroup10">
+        <span id="tgSpan10" class="fa fa-angle-right"></span>
+          Support
+          <!-- prints out the names of the top level books with arrow down or to right
+               So in this case: Welcome 1 and Another Book -->
+      </a>
+
+
+      <!-- this then goes through all the topics within the top level groups
+      depending on whether it itself contains further topics or is a single file -->
+
+      <ul id="topicGroup10" class="collapse  list-unstyled">
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../support/getting-support.html">Getting support for Red Hat Advanced Cluster Security for Kubernetes</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+
+        <!-- for each topic in this topic_group, for example in Welcome 1, what topics exist?
+        Welcome 2 and Welcome 1 More -->
+
+
+          <!-- is this is a single page? That is, does this topic have more topics?
+          Welcome 1 More -->
+
+            <!-- ^ this establishs whether we are reading this current page -->
+
+            <li><a class="" href="../support/getting-support-stackrox.html">Getting support for the StackRox Kubernetes Security Platform</a></li>
+            <!--  if active, then highlight it,  otherwise nothing to do -->
+
+      </ul>
+    </li>
+</ul>
+      </div>
+      <div id="hc-search-modal">
+        <div id="hc-modal-content">
+          <span id="hc-modal-close">&times;</span>
+          <div id="hc-search-results-wrapper">
+            <div id="hc-search-results"></div>
+            <div id="hc-search-progress-indicator" class="text-center search-progress-indicator"><i class="fa fa-circle-o-notch fa-spin" style="font-size:42px"></i></div>
+            <div class="text-center">
+              <button id="hc-search-more-btn">Show more results</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 main">
+        <div class="page-header">
+          <h1>
+            Searching and filtering
+          </h1>
+        </div>
+        
+        
+        <div id="preamble">
+<div class="sectionbody">
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#search-syntax_search-filter">Search syntax</a></li>
+<li><a href="#search-autocomplete_search-filter">Search autocomplete</a></li>
+<li><a href="#use-global-search_search-filter">Using global search</a></li>
+<li><a href="#use-local-page-filtering_search-filter">Using local page filtering</a></li>
+<li><a href="#common-search-queries_search-filter">Common search queries</a></li>
+<li><a href="#search-attributes_search-filter">Search attributes</a></li>
+</ul>
+</div>
+<div class="paragraph _abstract">
+<p>The ability to instantly find resources is important to safeguard your cluster. Use Red Hat Advanced Cluster Security for Kubernetes search feature to find relevant resources faster. For example, you can use it to find deployments that are exposed to a newly published CVE or find all deployments that have external network exposure.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="search-syntax_search-filter"><a class="anchor" href="#search-syntax_search-filter"></a>Search syntax</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A search query is made up of two parts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An attribute that identifies the resource type you want to search for.</p>
+</li>
+<li>
+<p>A search term that finds the matching resource.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For example, to find all violations in the <code>visa-processor</code> deployment, the search query is <code>Deployment:visa-processor</code>. In this search query, <code>Deployment</code> is the attribute and <code>visa-processor</code> is the search term.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You must select an attribute before you can use search terms. However, in some views, such as the <strong>Risk</strong> view and the <strong>Violations</strong> view, Red Hat Advanced Cluster Security for Kubernetes automatically applies the relevant attribute based on the search term you enter.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You can use multiple attributes in your query. When you use more than one attribute, the results only include the items that match all attributes.</p>
+<div class="paragraph">
+<div class="title">Example</div>
+<p>When you search for <code>Namespace:frontend CVE:CVE-2018-11776</code>, it returns only those resources which violate CVE-2018-11776 in the <code>frontend</code> namespace.</p>
+</div>
+</li>
+<li>
+<p>You can use more than one search term with each attribute. When you use more than one search term, the results include all items that match any of the search terms.</p>
+<div class="paragraph">
+<div class="title">Example</div>
+<p>If you use the search query <code>Namespace: frontend backend</code>, it returns matching results from the namespace <code>frontend</code> or <code>backend</code>.</p>
+</div>
+</li>
+<li>
+<p>You can combine multiple attribute and search term pairs.</p>
+<div class="paragraph">
+<div class="title">Example</div>
+<p>The search query <code>Cluster:production Namespace:frontend CVE:CVE-2018-11776</code> returns all resources which violate CVE-2018-11776 in the <code>frontend</code> namespace in the <code>production</code> cluster.</p>
+</div>
+</li>
+<li>
+<p>Search terms can be part of a word, in which case Red Hat Advanced Cluster Security for Kubernetes returns all matching results.</p>
+<div class="paragraph">
+<div class="title">Example</div>
+<p>If you search for <code>Deployment:def</code>, the results include all deployments starting with <code>def</code>.</p>
+</div>
+</li>
+<li>
+<p>To explicitly search for a specific term, use the search terms inside quotes.</p>
+<div class="paragraph">
+<div class="title">Example</div>
+<p>When you search for <code>Deployment:"def"</code>, the results only include the deployment <code>def</code>.</p>
+</div>
+</li>
+<li>
+<p>You can also use regular expressions by using <code>r/</code> before your search term.</p>
+<div class="paragraph">
+<div class="title">Example</div>
+<p>When you search for <code>Namespace:r/st.*x</code>, the results include matches from namespace <code>stackrox</code> and <code>stix</code>.</p>
+</div>
+</li>
+<li>
+<p>Use <code>!</code> to indicate the search terms that you do not want in results.</p>
+<div class="paragraph">
+<div class="title">Example</div>
+<p>If you search for <code>Namespace:!stackrox</code>, the results include matches from all namespaces except the <code>stackrox</code> namespace.</p>
+</div>
+</li>
+<li>
+<p>Use the comparison operators <code>&gt;</code>, <code>&lt;</code>, <code>=</code>, <code>&gt;=</code>, or <code>&lt;=</code> to match a specific value or range of values.</p>
+<div class="paragraph">
+<div class="title">Example</div>
+<p>If you search for <code>CVSS:&gt;=6</code>, the results include all vulnerabilities with Common Vulnerability Scoring System (CVSS) score 6 or higher.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="search-autocomplete_search-filter"><a class="anchor" href="#search-autocomplete_search-filter"></a>Search autocomplete</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As you enter your query, Red Hat Advanced Cluster Security for Kubernetes automatically displays relevant suggestions for the attributes and the search terms.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-global-search_search-filter"><a class="anchor" href="#use-global-search_search-filter"></a>Using global search</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By using global search you can search across all resources in your environment. Based on the resource type you use in your search query, the results are grouped in the following categories:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>All (Lists matching results across all categories.)</p>
+</li>
+<li>
+<p>Violations</p>
+</li>
+<li>
+<p>Policies</p>
+</li>
+<li>
+<p>Deployments</p>
+</li>
+<li>
+<p>Images</p>
+</li>
+<li>
+<p>Secrets</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These categories are listed as a table on the RHACS portal global search page and you can click on the category name to identify results belonging to the selected category.</p>
+</div>
+<div class="paragraph">
+<p>To do a global search, in the RHACS portal, select <strong>Search</strong> on the top right side.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-local-page-filtering_search-filter"><a class="anchor" href="#use-local-page-filtering_search-filter"></a>Using local page filtering</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can use local page filtering from within all views in the RHACS portal. Local page filtering works similar to the global search, but only relevant attributes are available. You can select the search bar to show all available attributes for a specific view.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="common-search-queries_search-filter"><a class="anchor" href="#common-search-queries_search-filter"></a>Common search queries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here are some common search queries you can run with Red Hat Advanced Cluster Security for Kubernetes.</p>
+</div>
+<h3 id="finding-deployments-that-are-affected-by-a-specific-cve" class="discrete">Finding deployments that are affected by a specific CVE</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CVE:&lt;CVE_number&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CVE:CVE-2018-11776</code></p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="finding-privileged-running-deployments" class="discrete">Finding privileged running deployments</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Privileged:&lt;true_or_false&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Privileged:true</code></p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="finding-deployments-that-have-external-network-exposure" class="discrete">Finding deployments that have external network exposure</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Exposure Level:&lt;level&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Exposure Level:External</code></p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="finding-deployments-that-are-running-specific-processes" class="discrete">Finding deployments that are running specific processes</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Process Name:&lt;process_name&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Process Name:bash</code></p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="finding-deployments-that-have-serious-but-fixable-vulnerabilities" class="discrete">Finding deployments that have serious but fixable vulnerabilities</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CVSS:&lt;expression_and_score&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>CVSS:&gt;=6</code> <code>Fixable:.*</code></p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="finding-deployments-that-use-passwords-exposed-through-environment-variables" class="discrete">Finding deployments that use passwords exposed through environment variables</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Environment Key:&lt;query&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Environment Key:r/.*pass.*</code></p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="finding-running-deployments-that-have-particular-software-components-in-them" class="discrete">Finding running deployments that have particular software components in them</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Component:&lt;component_name&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Component:libgpg-error</code> or <code>Component:sudo</code></p></td>
+</tr>
+</tbody>
+</table>
+<h3 id="finding-users-or-groups" class="discrete">Finding users or groups</h3>
+<div class="paragraph">
+<p>Use Kubernetes <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/">Labels and Selectors</a>, and <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/">Annotations</a> to attach metadata to your deployments.
+You can then query based on the applied annotations and labels to identify individuals or groups.</p>
+</div>
+<h4 id="finding-who-owns-a-particular-deployment" class="discrete">Finding who owns a particular deployment</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Deployment:&lt;deployment_name&gt;</code> <code>Label:&lt;key_value&gt;</code> or <code>Deployment:&lt;deployment_name&gt;</code> <code>Annotation:&lt;key_value&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Deployment:app-server</code> <code>Label:team=backend</code></p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="finding-who-is-deploying-images-from-public-registries" class="discrete">Finding who is deploying images from public registries</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Image Registry:&lt;registry_name&gt;</code> <code>Label:&lt;key_value&gt;</code> or <code>Image Registry:&lt;registry_name&gt;</code> <code>Annotation:&lt;key_value&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Image Registry:docker.io</code> <code>Label:team=backend</code></p></td>
+</tr>
+</tbody>
+</table>
+<h4 id="finding-who-is-deploying-into-the-default-namespace" class="discrete">Finding who is deploying into the default namespace</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Query</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Namespace:default</code> <code>Label:&lt;key_value&gt;</code> or <code>Namespace:default</code> <code>Annotation:&lt;key_value&gt;</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Namespace:default</code> <code>Label:team=backend</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="search-attributes_search-filter"><a class="anchor" href="#search-attributes_search-filter"></a>Search attributes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Following is the list of search attributes that you can use while searching and filtering in Red Hat Advanced Cluster Security for Kubernetes.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><strong>Attribute</strong></th>
+<th class="tableblock halign-left valign-top"><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add Capabilities</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provides the container with additional Linux capabilities, for instance the ability to modify files or perform network operations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Annotation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Arbitrary non-identifying metadata attached to an orchestrator object.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CPU Cores Limit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum number of cores that a resource is allowed to use.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CPU Cores Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minimum number of cores to be reserved for a given resource.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CVE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common Vulnerabilities and Exposures, use it with specific CVE numbers.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CVSS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Common Vulnerability Scoring System, use it with the CVSS score and greater than ( &gt; ), less than ( &lt; ), or equal to ( = ) symbols.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Category</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Policy categories include DevOps Best Practices, Security Best Practices, Privileges, Vulnerability Management, Multiple, and any custom policy categories that you create.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cert Expiration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Certificate expiration date.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cluster</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of a Kubernetes or OpenShift Container Platform cluster.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cluster ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unique ID for a Kubernetes or OpenShift Container Platform cluster.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cluster Role</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to search for cluster-wide roles and <code>false</code> for namespace-scoped roles.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Software (daemond, docker), objects (images, containers, services), registries (repository for Docker images).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Component Count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of components in the image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Component version</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The version of software, objects, or registries.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Created Time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time and date when the secret object was created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of Kubernetes controller on which the deployment is based.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description of the deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dockerfile Instruction Keyword</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keyword in the Dockerfile instructions in an image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dockerfile Instruction Value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value in the Dockerfile instructions in an image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Drop Capabilities</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linux capabilities that have been dropped from the container.
+For example <code>CAP_SETUID</code> or <code>CAP_NET_RAW</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enforcement</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of enforcement assigned to the deployment.
+For example, <code>None</code>, <code>Scale to Zero Replicas</code>, or <code>Add an Unsatisfiable Node Constraint</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Environment Key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key portion of a label key-value string that is metadata for further identifying and organizing the environment of a container.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Environment Value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value portion of a label key-value string that is metadata for further identifying and organizing the environment of a container.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exposed Node Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port number of the exposed node port.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exposing Service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the exposed service.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exposing Service Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port number of the exposed service.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exposure Level</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of exposure for a deployment port, for example <code>external</code> or <code>node</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">External Hostname</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The hostname for an external port exposure for a deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">External IP</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The IP address for an external port exposure for a deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fixable CVE Count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Number of fixable CVEs on an image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fixed By</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The version string of a package that fixes a flagged vulnerability in an image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image Command</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The command specified in the image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image Created Time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The time and date when the image was created.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image Entrypoint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The entrypoint command specified in the image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image Pull Secret</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the secret to use when pulling the image, as specified in the deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image Pull Secret Registry</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the registry for an image pull secret.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image Registry</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the image registry.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image Remote</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indication of an image that is remotely accessible.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image Scan Time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The time and date when the image was last scanned.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image Tag</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identifier for an image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image Users</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the user or group that a container image is configured to use when it runs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Image Volumes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Names of the configured volumes in the container image.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inactive Deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to search for inactive deployments and <code>false</code> for active deployments.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Label</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The key portion of a label key-value string that is metadata for further identifying and organizing images, containers, daemons, volumes, networks, and other resources.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lifecycle Stage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of lifecycle stage where this policy is configured or alert was triggered.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max Exposure Level</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">For a deployment, the maximum level of network exposure for all given ports/services.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Memory Limit (MB)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maximum amount of memory that a resource is allowed to use.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Memory Request (MB)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minimum amount of memory to be reserved for a given resource.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the namespace.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Namespace ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unique ID for the containing namespace object on a deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Node</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of a node.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Node ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unique ID for a node.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pod Label</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Single piece of identifying metadata attached to an individual pod.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Policy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The name of the security policy.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port numbers exposed by a deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port Protocol</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IP protocol such as TCP or UDP used by exposed port.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Priority</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Risk priority for a deployment.
+(Only available in <strong>Risks</strong> view.)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Privileged</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to search for privileged running deployments, or <code>false</code> otherwise.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Process Ancestor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of any parent process for a process indicator in a deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Process Arguments</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Command arguments for a process indicator in a deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Process Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the process for a process indicator in a deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Process Path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path to the binary in the container for a process indicator in a deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Process UID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unix user ID for the process indicator in a deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read Only Root Filesystem</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to search for containers running with the root file system configured as read only.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Role</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of a Kubernetes RBAC role.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Role Binding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of a Kubernetes RBAC role binding.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Role ID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Role ID to which a Kubernetes RBAC role binding is bound.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secret</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the secret object that holds the sensitive information.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secret Path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path to the secret object in the file system.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secret Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of the secret, for example, certificate or RSA public key.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service Account</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service account name for a service account or deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Severity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indication of level of importance of a violation: Critical, High, Medium, Low.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subject</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name for a subject in Kubernetes RBAC.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Subject Kind</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of subject in Kubernetes RBAC, such as <code>SERVICE_ACCOUNT</code>, <code>USER</code> or <code>GROUP</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Taint Effect</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type of taint currently applied to a node.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Taint Key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key for a taint currently applied to a node.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Taint Value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Allowed value for a taint currently applied to a node.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Toleration Key</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Key for a toleration applied to a deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Toleration Value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value for a toleration applied to a deployment.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Violation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A notification displayed in the <strong>Violations</strong> page when the conditions specified by a policy have not been met.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Violation State</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use it to search for resolved violations.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Violation Time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time and date that a violation first occurred.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Volume Destination</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mount path of the data volume.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Volume Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the storage.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Volume ReadOnly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Use <code>true</code> to search for volumes that are mounted as read only.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Volume Source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indicates the form in which the volume is provisioned (for example, <code>persistentVolumeClaim</code> or <code>hostPath</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Volume Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of volume.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+  <script src="https://assets.openshift.net/content/modernizr.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/subdomain.js" type="text/javascript"></script>
+  <script src="https://assets.openshift.net/content/nav-tertiary.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/bootstrap-offcanvas.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/reformat-html.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/hc-search.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/page-loader.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/clipboard.js" type="text/javascript"></script>
+  <script src="https://docs.openshift.com/container-platform/4.1/_javascripts/collapsible.js" type="text/javascript"></script>
+  <script>
+  var dk = 'openshift-acs';
+  var version = 'Branch Build';
+
+  var distros = {
+    'openshift-origin': ['docs_origin', version],
+    // specific labels are used for OSD instead of the URL filter, due to its unusual URL structure; assume v4
+    'openshift-dedicated': ['docs_dedicated_v4'],
+    'openshift-online': ['docs_online', version],
+    'openshift-enterprise': ['docs_cp', version],
+    'openshift-aro' : ['docs_aro', version],
+    'openshift-rosa' : ['docs_rosa'],
+    'openshift-acs' : ['docs_acs', version]
+  };
+
+  // only OSD v3 docs have the version variable specified
+  if (dk == "openshift-dedicated" && version == "3") {
+      distros['openshift-dedicated'] = ['docs_dedicated_v3']
+    }
+
+  distros[dk] ? hcSearchCategory.apply(null, distros[dk]) : hcSearchCategory("docs");
+  </script>
+  <script type="text/javascript">
+  /*<![CDATA[*/
+  $(document).ready(function() {
+    $("[id^='topicGroup']").on('show.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicGroup']").on('hide.bs.collapse', function(event) {
+      if (!($(event.target).attr('id').match(/^topicSubGroup/))) {
+        $(this).parent().find("[id^='tgSpan']").toggleClass("fa-angle-right fa-angle-down");
+      }
+    });
+    $("[id^='topicSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='sgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('show.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+    $("[id^='topicSubSubGroup']").on('hide.bs.collapse', function() {
+      $(this).parent().find("[id^='ssgSpan']").toggleClass("fa-caret-right fa-caret-down");
+    });
+
+    const collapsibleContent = document.getElementsByTagName("details");
+    for (var i = 0; i < collapsibleContent.length; i++) {
+      collapsibleContent[i].setAttribute("open", "");
+    }
+
+  });
+  /*]]>*/
+  </script>
+
+  <footer id="rh">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2">
+                <img src="https://assets.openshift.com/hubfs/images/logos/Logo-RedHat-A-Reverse-RGB.svg" class="img-fluid" alt="Red Hat" style="height: 30px;">
+            </div>
+
+            <div class="col-sm-3">
+                <p class="text-nowrap">Copyright © 2021 Red Hat, Inc.</span></p>
+            </div>
+
+            <div class="col">
+                <nav class="nav">
+                    <a target="_blank" href="https://www.redhat.com/en/about/privacy-policy" class="nav-link">Privacy statement</a>
+                    <a target="_blank" href="https://www.openshift.com/legal/terms/" class="nav-link">Terms of use</a>
+                    <a target="_blank" href="https://www.redhat.com/en/about/all-policies-guidelines" class="nav-link">All policies and guidelines</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Adobe DTM -->
+<script type="text/javascript">
+if (("undefined" !== typeof _satellite) && ("function" === typeof _satellite.pageBottom)) {
+   _satellite.pageBottom();
+}
+</script>
+<!-- End Adobe DTM -->
+
+  <!-- adjust page css based on breadcrumb and/or resize -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      if (window.innerWidth >= 1008) {
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1008) {
+        sidebar.style.display = 'block';
+        adjustSide();
+        adjustToc();
+        adjustMain();
+      } else if (window.innerWidth < 1008) {
+        sidebar.style.display = 'none';
+        document.querySelector('.main').style.paddingTop = '0px';
+      }
+    });
+
+    function adjustSide() {
+      document.querySelector('.sidebar').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 125), 10) + "px";
+      document.querySelector('#hc-search').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 95), 10) + "px";
+    }
+
+    function adjustToc() {
+      if (document.querySelector('#toc') !== null) {
+        document.querySelector('#toc').style.top = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      }
+    }
+
+    function adjustMain() {
+      document.querySelector('html').style.scrollPaddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight + 90), 10) + "px";
+      document.querySelector('.main').style.paddingTop = parseInt((document.querySelector('.breadcrumb').offsetHeight - 70), 10) + "px";
+    }
+
+  </script>
+
+  <!-- remove toc active class when page is loaded -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      var tocItems = $("#toc a");
+
+      for (let i = 0; i < tocItems.length; i++) {
+        tocItems[i].classList.remove("toc-active");
+      }
+    })
+  </script>
+
+  <!-- maintain sidebar scroll position between page loads -->
+  <script type="text/javascript">
+    let sidebar = document.querySelector(".sidebar");
+    let scrolltop = localStorage.getItem("sidebar-scroll");
+
+    if (scrolltop == null) {
+      sidebar.scrollTop = parseInt(top, 10);
+    }
+
+    window.addEventListener("beforeunload", () => {
+      localStorage.setItem("sidebar-scroll", sidebar.scrollTop);
+    });
+
+    window.addEventListener('load', () => {
+      sidebar.scrollTo(0, scrolltop)
+    })
+  </script>
+
+  <!-- open/close the nav -->
+  <script type="text/javascript">
+    function closeNav() {
+      let sidebar = document.querySelector(".sidebar");
+      sidebar.style.display = "none";
+    }
+
+    function openNav() {
+      let sidebar = document.querySelector(".sidebar");
+      let hc_search = document.querySelector('#hc-search');
+      sidebar.style.display = "block";
+      sidebar.style.top = "0px";
+      hc_search.style.top = 'unset';
+    }
+  </script>
+
+  <!-- clear and add toc-active to clicked toc link -->
+  <script type="text/javascript">
+  $("#toc a").click(function() {
+    var tocItems = $("#toc a");
+    for (let i = 0; i < tocItems.length; i++) {
+      tocItems[i].classList.remove("toc-active");
+    }
+    this.classList.add("toc-active");
+  });
+  </script>
+
+  <!-- update active toc class when mouse scrolls -->
+  <script type="text/javascript">
+    window.addEventListener('DOMContentLoaded', () => {
+      window.addEventListener("wheel", () => {
+
+        const ioConfiguration = {
+          "rootMargin": "-120px 0px -400px 0px",
+          "threshold": 0
+        };
+
+      const ioConfiguration = {
+        "rootMargin": "-120px 0px -400px 0px",
+        "threshold": 0
+      };
+
+      const observer = new IntersectionObserver(setCurrent, ioConfiguration, entries => {
+        entries.forEach(entry => {
+          var id = entry.target.getAttribute('id');
+          //fight with js
+          document.querySelector(`#toc li a[href="#${id}"]`).classList.remove('toc-active');
+        });
+      });
+
+      //track all h1-4 headings that have an id
+      document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+        observer.observe(h);
+      });
+
+      //runs when the IntersectionObserver fires
+      function setCurrent(e) {
+        var allTocLinks = document.querySelectorAll("#toc li a");
+        e.map(i => {
+          if (i.isIntersecting && i.intersectionRatio >= 1) {
+            allTocLinks.forEach(link => link.classList.remove("toc-active"));
+            document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active');
+          }
+        });
+      };
+
+      //make clicked toc item active and stop IntersectionObserver
+      $("#toc a").click(function() {
+        //stop tracking all h1-4 headings that have an id
+        document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+          observer.unobserve(h);
+        });
+
+        //runs when the IntersectionObserver fires
+        function setCurrent(e) {
+          var allTocLinks = document.querySelectorAll("#toc li a");
+          if (allTocLinks !== undefined) {
+            e.map(i => {
+              if (i.isIntersecting && i.intersectionRatio >= 1) {
+                allTocLinks.forEach(link => link.classList.remove("toc-active"));
+                document.querySelector(`#toc li a[href="#${i.target.id}"]`).classList.add('toc-active')
+              }
+            })
+          }
+        };
+
+        //make clicked toc item active and stop IntersectionObserver
+        $("#toc a").click(function() {
+          //stop tracking all h1-4 headings that have an id
+          document.querySelectorAll('.main h2[id], .main h3[id]').forEach((h) => {
+            observer.unobserve(h);
+          });
+          var tocItems = $("#toc a");
+          if (tocItems !== undefined) {
+            for (let i = 0; i < tocItems.length; i++) {
+              tocItems[i].classList.remove("toc-active");
+            };
+            this.classList.add("toc-active");
+          }
+        })
+      })
+    })
+  </script>
+
+  <!--handle page scroll top and bottom, add toc-active -->
+  <script type="text/javascript">
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          };
+          tocItems[tocItems.length - 1].classList.add("toc-active");
+        };
+      //scroll to top
+      if(window.scrollY==0) {
+        var tocItems = $("#toc a");
+        for (let i = 0; i < tocItems.length; i++) {
+          tocItems[i].classList.remove("toc-active")
+          }
+        };
+        tocItems[0].classList.add("toc-active");
+      })
+  </script>
+
+  <!--adjust sidebar and toc when footer is displayed -->
+  <script type="text/javascript">
+    sidebar = document.querySelector('.sidebar')
+    toc = document.querySelector('#toc')
+    main = document.querySelector('.main')
+    okd_footer = document.querySelector('.footer-origin-docs')
+    document.addEventListener('scroll', () => {
+      //scroll to bottom
+      if (window.innerWidth >= 1008) {
+        if(sidebar !== null && toc !== null) {
+          if(document.documentElement.scrollHeight === window.pageYOffset + window.innerHeight) {
+              sidebar.style.marginBottom = "38px";
+              toc.style.bottom = "35px";
+              main.style.marginBottom = "35px";
+              //okd footer
+              if(okd_footer !== null) {
+                sidebar.style.marginBottom = "176px";
+                toc.style.bottom = "175px";
+                main.style.marginBottom = "135px";
+              };
+            };
+          if(document.documentElement.scrollHeight != window.pageYOffset + window.innerHeight) {
+            sidebar.style.marginBottom = "0px";
+            toc.style.bottom = "0px";
+          }
+        }
+      }
+    })
+  </script>
+
+  <!-- adjust alerts on mobile -->
+  <script type="text/javascript">
+    alert = document.querySelector('#support-alert')
+    window.addEventListener("wheel", () => {
+      if (window.innerWidth < 1008) {
+        //adjust alert
+        if(window.pageYOffset > 0) {
+          if(alert !== null) {
+            document.querySelector('#support-alert').style.position = "fixed";
+            document.querySelector('#support-alert').style.bottom = "0px";
+            document.querySelector('#support-alert').style.margin = "5px";
+            document.querySelector('#support-alert').style.zIndex = "9999999";
+          }
+        }
+      }
+   });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1008) {
+        if(alert !== null) {
+          document.querySelector('#support-alert').style.removeProperty('position');
+          document.querySelector('#support-alert').style.removeProperty('bottom');
+          document.querySelector('#support-alert').style.removeProperty('margin');
+          document.querySelector('#support-alert').style.removeProperty('zIndex');
+        }
+      }
+    })
+  </script>
+
+</body>
+
+</html>
